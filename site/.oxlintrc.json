@@ -3,12 +3,23 @@
   "ignorePatterns": ["tools/oxlint/anti-slop/**"],
   "jsPlugins": [
     "@shadcn/lint",
+    "oxlint-tailwindcss",
     {
       "name": "anti-slop",
       "specifier": "./tools/oxlint/anti-slop/index.ts"
     }
   ],
+  "settings": {
+    "tailwindcss": {
+      "entryPoint": "src/styles/global.css"
+    }
+  },
   "rules": {
+    "tailwindcss/no-unknown-classes": "error",
+    "tailwindcss/no-conflicting-classes": "error",
+    "tailwindcss/enforce-canonical": "error",
+    "tailwindcss/enforce-sort-order": "error",
+    "tailwindcss/prefer-scale-token": "error",
     "oxc/no-accumulating-spread": "error",
     "anti-slop/no-array-filter-map": "error",
     "anti-slop/no-reduce-accumulator-copy": "error",

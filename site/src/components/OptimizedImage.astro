@@ -1,0 +1,72 @@
+---
+import { Image, type ImageMetadata } from 'astro:assets';
+
+type NumericAttribute = number | `${number}`;
+
+interface Props {
+  src: string;
+  alt: string;
+  class?: string;
+  width?: NumericAttribute;
+  height?: NumericAttribute;
+  priority?: boolean;
+  fetchpriority?: 'auto' | 'high' | 'low';
+  layout?: 'constrained' | 'fixed' | 'full-width' | 'none';
+  format?: string;
+  quality?: number | 'low' | 'mid' | 'high' | 'max';
+  loading?: 'eager' | 'lazy';
+  decoding?: 'async' | 'sync' | 'auto';
+}
+
+// SAFETY: Every call site supplies the documented image props, and src is resolved against the bundled local asset map below.
+const props = Astro.props as Props;
+
+const {
+  src,
+  alt,
+  class: className,
+  width: rawWidth,
+  height: rawHeight,
+  priority: requestedPriority,
+  fetchpriority,
+  layout,
+  format,
+  quality,
+  loading,
+  decoding,
+} = props;
+
+const toNumber = (value: NumericAttribute | undefined) =>
+  value === undefined ? undefined : Number(value);
+
+const width = toNumber(rawWidth);
+
+const height = toNumber(rawHeight);
+
+const priority = requestedPriority ?? fetchpriority === 'high';
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/**/*.{png,jpg,jpeg,webp,avif}',
+  { eager: true },
+);
+
+const image = images[`../assets/${src.replace(/^\/assets\//, '')}`]?.default;
+
+if (!image) {
+  throw new Error(`OptimizedImage could not find ${src} in src/assets`);
+}
+---
+<Image
+  src={image}
+  alt={alt}
+  class={className}
+  width={width}
+  height={height}
+  priority={priority}
+  layout={layout ?? 'constrained'}
+  format={format ?? 'webp'}
+  quality={quality ?? 75}
+  fetchpriority={fetchpriority}
+  loading={loading}
+  decoding={decoding}
+ />

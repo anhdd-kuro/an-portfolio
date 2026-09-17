@@ -1,0 +1,20 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { localizedPath } from "../../i18n/config";
+import OptimizedImage from "../OptimizedImage.astro";
+
+type NotFoundPageData = Extract<CollectionEntry<"pages">["data"], { kind: "not-found" }>;
+
+interface Props {
+  content: NotFoundPageData;
+}
+
+const { content } = Astro.props;
+---
+
+<section class="px-6 pt-16 pb-24 flex flex-col items-center text-center">
+  <OptimizedImage src="/assets/images/aboutme.png" alt="" class="w-55 max-w-[60%] object-contain" />
+  <h1 class="mt-10 font-extrabold text-[32px] leading-10">{content.heading}</h1>
+  <p class="mt-3 text-body-loose">{content.message}</p>
+  <a href={localizedPath(content.locale, "home")} class="img-btn block w-34 h-6.5 mt-10 bg-left!" style="background-image:url(/assets/icons/back.png)" aria-label={content.homeLabel} title={content.homeLabel}></a>
+</section>

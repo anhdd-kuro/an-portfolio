@@ -9,10 +9,8 @@ excluded from the public repository.
 
 ## Stack
 
-- **Astro** (static output, no server needed) - one small `.astro` file per
-  page/locale, all sharing `src/layouts/BaseLayout.astro` and
-  `src/components/Header.astro` instead of copy-pasting header/footer markup
-  into every page like the old site did.
+- **Astro** (static output, no server needed) - shared dynamic routes and page
+  components render validated locale content from an Astro content collection.
 - **Tailwind CSS**, compiled at build time via `@tailwindcss/vite` (was the
   Play CDN before - same config, same utility classes, no runtime CDN
   dependency any more).
@@ -22,36 +20,29 @@ excluded from the public repository.
 - **Oxfmt**, used to format supported source files and enforce formatting in CI.
   Oxfmt does not format `.astro` files, so Astro template formatting remains
   governed by the Astro parser and build.
-- Plain JS (`public/assets/js/main.js`) for the mobile menu, banner hover/tap
+- Plain JS (`src/scripts/main.js`) for the mobile menu, banner hover/tap
   hotspots, the language dropdown open/close, and the scroll/back-to-top
   button. No framework.
 
 ## i18n
 
-Locales: `en`, `ja` (served under the `/jp` path), `vi` - as three parallel
-page trees:
+Locales are `en`, `ja` (served under the `/jp` path), and `vi`. Route files are
+shared; translated shell-page content lives in one typed collection:
 
 ```
-src/pages/en/...
-src/pages/jp/...   (locale code 'ja', URL prefix 'jp' per the original request)
-src/pages/vi/...
+src/content/pages/{en,jp,vi}/*.json
+src/pages/[lang]/index.astro
+src/pages/[lang]/[slug].astro
 ```
 
-Each of the ~30 source pages was run through `generate.cjs` (kept in this
-folder) once, which:
+`src/content.config.ts` validates every entry. `src/i18n/config.ts` is the
+single source of truth for locale-to-route mapping, including `ja` -> `/jp`.
+Shared navigation labels remain in `src/i18n/ui.json` and are read through
+`src/i18n/utils.ts`.
 
-- read the legacy HTML in `../tmp/backup/site-legacy-20260910/`,
-- applied the _same_ substitution the old `main.js` did at runtime for
-  `data-i18n` / `data-i18n-html` / `data-i18n-title` / `data-i18n-alt`
-  (using `src/i18n/ui.json`, extracted from the legacy `translations.js`),
-  but baked into static HTML per locale instead of swapped client-side,
-  rewrote internal links (`about.html` -> `/en/about`, `/jp/about`, ...) and
-  asset paths (`assets/...` -> `/assets/...`),
-- and wrote one `.astro` file per page per locale under `src/pages/<prefix>/`.
-
-Re-run `node generate.cjs` from this folder any time the legacy source pages
-or `src/i18n/ui.json` change and you want to regenerate the locale pages
-(it overwrites `src/pages/{en,jp,vi}/*.astro`).
+`generate.cjs` is a legacy migration utility only. Do not run it against the
+current source tree: it predates the collection-backed routes and can recreate
+the removed per-locale page files.
 
 ### Landing / language redirect
 
@@ -64,29 +55,28 @@ visitors.
 
 ## Adding a new project page (the "scale" part)
 
-1. Add the new page's translation keys to `src/i18n/ui.json` (or, if you're
-   still working from the legacy site, add them to
-   `../tmp/backup/site-legacy-20260910/assets/js/translations.js` and re-extract
-   with the one-liner in the project notes).
-2. Either hand-write three small `.astro` files (one per locale, wrapped in
-   `BaseLayout`), or add the new page's legacy HTML file to
-   `../tmp/backup/site-legacy-20260910/` and re-run `node generate.cjs`.
-3. `npm run build` and check `dist/`.
+1. Add the project once to `src/data/projects.ts`.
+2. Add its localized body modules under
+   `src/data/projects/<slug>/{en,ja,vi}.astro`.
+3. Add shared navigation labels to `src/i18n/ui.json` only when needed.
+4. Run `bun run lint` and `bun run build`, then check all three generated
+   locale routes in `dist/`.
 
 ## Commands
 
 ```
-npm install
-npm run dev       # http://localhost:4321
-npm run build     # -> dist/
-npm run lint      # Oxlint + @shadcn/lint + anti-slop rules
-npm run format    # format supported files with Oxfmt
-npm run format:check
-npm run preview
+bun install
+bun run dev       # http://localhost:4321
+bun run build     # -> dist/
+bun run lint      # Oxlint + @shadcn/lint + anti-slop rules
+bun run format    # format supported files with Oxfmt
+bun run format:check
+bun run preview
 ```
 
-GitHub Actions runs `npm ci`, `npm run lint`, `npm run format:check`, and
-`npm run build` on pushes to `main` and on pull requests.
+GitHub Actions runs `bun install --frozen-lockfile`, `bun run lint`,
+`bun run format:check`, and `bun run build` on pushes to `main` and on pull
+requests.
 
 ## Known follow-ups
 

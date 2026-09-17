@@ -1,0 +1,12 @@
+{
+  "kind": "portfolio",
+  "locale": "vi",
+  "route": "ui-design",
+  "title": "Thiết kế UI/UX | Thuy An Portfolio",
+  "description": "Portfolio thiết kế UI/UX của Thúy An gồm website, landing page và giao diện ứng dụng.",
+  "heading": "Thiết kế UI/UX",
+  "category": "ui-design",
+  "intro": "Mình có khoảng 3 năm kinh nghiệm thiết kế UI, từng có cơ hội làm việc với TikTok, các thương hiệu nhỏ và trong một công ty Nhật Bản. Mình có kinh nghiệm trao đổi trực tiếp với khách hàng và phối hợp với các nhóm đa chức năng.",
+  "introLabel": "Giới thiệu",
+  "projectsLabel": "Dự án UI/UX"
+}

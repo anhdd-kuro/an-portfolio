@@ -1,0 +1,32 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import AboutPage from "./pages/AboutPage.astro";
+import ContactPage from "./pages/ContactPage.astro";
+import HomePage from "./pages/HomePage.astro";
+import NotFoundPage from "./pages/NotFoundPage.astro";
+import PortfolioPage from "./pages/PortfolioPage.astro";
+
+interface Props {
+  entry: CollectionEntry<"pages">;
+}
+
+const { entry } = Astro.props;
+
+const content = entry.data;
+---
+
+<BaseLayout
+  lang={content.locale}
+  page={content.route || "home"}
+  title={content.title}
+  description={content.description}
+  ogImage={content.ogImage}
+  divider={content.kind !== "home"}
+>
+  {content.kind === "home" && <HomePage content={content} />}
+  {content.kind === "about" && <AboutPage content={content} />}
+  {content.kind === "portfolio" && <PortfolioPage content={content} />}
+  {content.kind === "contact" && <ContactPage content={content} />}
+  {content.kind === "not-found" && <NotFoundPage content={content} />}
+</BaseLayout>

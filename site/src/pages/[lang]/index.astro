@@ -1,0 +1,20 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import LocalizedPage from "../../components/LocalizedPage.astro";
+import { routeFromLocale } from "../../i18n/config";
+
+interface Props { entry: CollectionEntry<"pages"> }
+
+export async function getStaticPaths() {
+  const homePages = (await getCollection("pages")).filter((entry) => entry.data.kind === "home");
+
+  return homePages.map((entry) => ({
+    params: { lang: routeFromLocale(entry.data.locale) },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+---
+
+<LocalizedPage entry={entry} />

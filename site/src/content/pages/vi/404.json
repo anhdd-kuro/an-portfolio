@@ -1,0 +1,10 @@
+{
+  "kind": "not-found",
+  "locale": "vi",
+  "route": "404",
+  "title": "Không tìm thấy trang | Thuy An Portfolio",
+  "description": "Trang bạn đang tìm không tồn tại.",
+  "heading": "404",
+  "message": "Rất tiếc, trang này không tồn tại.",
+  "homeLabel": "Trang chủ"
+}

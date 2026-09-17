@@ -11,7 +11,7 @@ the portfolio's existing visual identity and content.
 - Shared page structure is in `site/src/layouts/BaseLayout.astro` and
   `site/src/components/Header.astro`; shared styling is in
   `site/src/styles/global.css`; small site interactions are in
-  `site/public/assets/js/main.js`.
+  `site/src/scripts/main.js`.
 - Translations live in `site/src/i18n/ui.json`. The local-only legacy static
   site in `tmp/backup/site-legacy-20260910/` is the reference for the original
   HTML, translations, links, and asset mapping. Original design material is
@@ -40,9 +40,9 @@ the portfolio's existing visual identity and content.
 
 ## Verification and handoff
 
-- From `site/`, run `npm run build` for every code, content, routing, or style
+- From `site/`, run `bun run build` for every code, content, routing, or style
   change. Inspect the affected files under `site/dist/` afterward.
-- From `site/`, run `npm run lint` after source changes. Keep `@shadcn/lint`
+- From `site/`, run `bun run lint` after source changes. Keep `@shadcn/lint`
   rules disabled until the design-system policies are explicitly defined;
   anti-slop generic rules are enabled by the Oxlint configuration. The root
   `.github/workflows/ci.yml` runs the same lint and build checks on pushes and

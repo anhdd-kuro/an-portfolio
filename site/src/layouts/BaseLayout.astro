@@ -1,10 +1,14 @@
 ---
+import { Font } from 'astro:assets';
 import Header from '../components/Header.astro';
-import ui from '../i18n/ui.json';
+import logo from '../assets/images/logo.png';
+import { htmlLangFromLocale, localeEntries, localizedPath, type Locale } from '../i18n/config';
+import { useTranslations } from '../i18n/utils';
+import { resolveImageAsset } from '../lib/image-assets';
 import '../styles/global.css';
 
 export interface Props {
-  lang: 'en' | 'ja' | 'vi';
+  lang: Locale;
   page: string; // 'home' or bare slug, matches body[data-page] on the legacy site
   title: string;
   description: string;
@@ -21,16 +25,14 @@ const {
   divider = true,
 } = Astro.props;
 
-const t = (key: keyof typeof ui.en) => ui[lang]?.[key] ?? ui.en[key] ?? key;
+const t = useTranslations(lang);
 
-const PREFIX = { en: 'en', ja: 'jp', vi: 'vi' };
+const htmlLang = htmlLangFromLocale(lang);
 
-const altPath = (p: string) => (page === 'home' ? `/${p}` : `/${p}/${page}`);
-
-const htmlLang = lang === 'ja' ? 'ja' : lang === 'vi' ? 'vi' : 'en';
+const ogImageUrl = resolveImageAsset(ogImage)?.src ?? ogImage;
 ---
 <!DOCTYPE html>
-<html lang={htmlLang} class={htmlLang === 'ja' ? 'font-jp' : ''}>
+<html lang={htmlLang}>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -39,20 +41,18 @@ const htmlLang = lang === 'ja' ? 'ja' : lang === 'vi' ? 'vi' : 'en';
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content={ogImage} />
+  <meta property="og:image" content={ogImageUrl} />
   <meta name="theme-color" content="#ffffff" />
-  <link rel="icon" type="image/png" href="/assets/images/logo.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Hina+Mincho&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/css/style.css" />
-  <link rel="alternate" hreflang="en" href={altPath(PREFIX.en)} />
-  <link rel="alternate" hreflang="ja" href={altPath(PREFIX.ja)} />
-  <link rel="alternate" hreflang="vi" href={altPath(PREFIX.vi)} />
-  <link rel="alternate" hreflang="x-default" href={altPath(PREFIX.en)} />
+  <link rel="icon" type="image/png" href={logo.src} />
+  <Font cssVariable="--font-quicksand" preload />
+  {htmlLang === 'ja' && <Font cssVariable="--font-hina-mincho" />}
+  {localeEntries.map((locale) => (
+    <link rel="alternate" hreflang={locale.htmlLang} href={localizedPath(locale.locale, page)} />
+  ))}
+  <link rel="alternate" hreflang="x-default" href={localizedPath('en', page)} />
 </head>
-<body data-page={page} class="font-serif text-ink bg-paper">
-<div class="w-full max-w-[1280px] mx-auto bg-paper min-h-screen flex flex-col overflow-x-hidden">
+<body data-page={page} class:list={[htmlLang === 'ja' ? 'font-jp' : 'font-serif', 'text-ink', 'bg-paper']}>
+<div class="w-full max-w-7xl mx-auto bg-paper min-h-screen flex flex-col overflow-x-hidden">
 
   <Header lang={lang} page={page} />
 
@@ -67,6 +67,6 @@ const htmlLang = lang === 'ja' ? 'ja' : lang === 'vi' ? 'vi' : 'en';
   </footer>
 </div>
 <a href="#" id="side-scroll" title={t('nav.scroll')} aria-label={t('nav.scroll')} data-scroll-label={t('nav.scroll')} data-totop-label={t('nav.totop')}><span class="sr-only">{t('nav.scroll')}</span></a>
-<script src="/assets/js/main.js" defer></script>
+<script src="../scripts/main.js"></script>
 </body>
 </html>

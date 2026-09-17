@@ -1,0 +1,26 @@
+---
+import type { Project, ProjectLocale } from "../../data/projects/types";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+interface Props {
+  locale: ProjectLocale;
+  project: Project;
+}
+
+const { locale, project } = Astro.props;
+
+const metadata = project.metadata[locale];
+
+const ProjectContent = project.content[locale];
+---
+
+<BaseLayout
+  lang={locale}
+  page={project.slug}
+  title={metadata.title}
+  description={metadata.description}
+  ogImage={metadata.ogImage}
+  divider={true}
+>
+  <ProjectContent />
+</BaseLayout>

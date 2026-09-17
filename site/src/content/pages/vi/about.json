@@ -1,0 +1,22 @@
+{
+  "kind": "about",
+  "locale": "vi",
+  "route": "about",
+  "title": "Về tôi | Thuy An Portfolio",
+  "description": "Giới thiệu kinh nghiệm làm việc và kỹ năng thiết kế của Thúy An, illustrator và UI designer người Việt đang sống tại Fukuoka.",
+  "heading": "Về tôi",
+  "sections": [
+    {
+      "title": "[Tổng quan kinh nghiệm]",
+      "body": "・Khi còn là sinh viên, mình thực tập và phụ trách thiết kế đồ hoạ 2D như tờ rơi, poster.<br>・Mình tự thiết kế và bán sản phẩm của mình như bao lì xì, bưu thiếp.<br>・Làm freelance, nhận đơn từ nhiều nhà xuất bản ở Việt Nam, làm cả digital và vẽ tay.<br>・Nhận đơn từ một nhà xuất bản truyện tranh Trung Quốc, cùng bạn lập studio khởi nghiệp và phụ trách phần tô màu truyện tranh.<br>・Hiện phụ trách illustration và thiết kế UI/UX tại công ty CaeruxLab."
+    },
+    {
+      "title": "[Kinh nghiệm làm việc]",
+      "body": "・Đến tháng 06/2018<br>Thực tập tại một công ty thiết kế ở Việt Nam<br>Đối tác: công ty Việt Nam<br>Nội dung: phụ trách thiết kế đồ hoạ 2D như tờ rơi, poster<br>Số người trong nhóm: làm một mình<br>Công cụ: Photoshop, Illustrator<br><br>・10/2018 - 04/2019<br>Khởi nghiệp cùng bạn từ đơn hàng của một công ty Trung Quốc<br>Đối tác: công ty truyện tranh Trung Quốc<br>Nội dung: từ name (bản phác) sang bản nét, tô màu và hoàn thiện<br>Số người trong nhóm: 6 người<br>Với vai trò leader, mình chia việc, quản lý chất lượng và tham gia vẽ<br>Công cụ: Photoshop, Illustrator<br><br>・04/2019 - 03/2022<br>Vừa học trường tiếng Nhật, vừa làm freelance từ xa<br>Đối tác: các nhà xuất bản ở Việt Nam<br>Nội dung: nhận bản thảo và làm thành sách tranh<br>Số người trong nhóm: làm một mình<br>Công cụ: Photoshop, Illustrator<br><br>・03/2022 - 12/2024<br>Làm designer tại công ty CaeruxLab<br>Nội dung: thiết kế UI/UX, thiết kế mini game<br>Công cụ: Photoshop, Illustrator, Adobe XD, Figma<br><br>・01/2025 - hiện tại<br>Ký hợp đồng uỷ thác công việc với Caerux Inc. (trụ sở chính) và làm việc với vai trò designer<br>Nội dung: thiết kế UI/UX, vẽ illustration<br>Công cụ: Photoshop, Illustrator, Adobe XD, Figma"
+    },
+    {
+      "title": "[Kỹ năng thiết kế]",
+      "body": "・Photoshop (kinh nghiệm thực tế: khoảng 8 năm)<br>・Illustrator (kinh nghiệm thực tế: khoảng 8 năm)<br>・Adobe XD (kinh nghiệm thực tế: khoảng 3 năm)<br>・Figma (kinh nghiệm thực tế: khoảng 2 năm)<br>・Vẽ tay"
+    }
+  ]
+}

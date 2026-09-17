@@ -1,0 +1,10 @@
+{
+  "kind": "not-found",
+  "locale": "en",
+  "route": "404",
+  "title": "Page not found | Thuy An Portfolio",
+  "description": "The page you are looking for does not exist.",
+  "heading": "404",
+  "message": "Oops, this page doesn’t exist.",
+  "homeLabel": "Home"
+}

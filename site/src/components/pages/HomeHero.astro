@@ -1,0 +1,52 @@
+---
+import type { Locale } from "../../i18n/config";
+import { localizedPath } from "../../i18n/config";
+import { useTranslations } from "../../i18n/utils";
+import OptimizedImage from "../OptimizedImage.astro";
+
+interface Props {
+  locale: Locale;
+  label: string;
+}
+
+const { locale, label } = Astro.props;
+
+const t = useTranslations(locale);
+
+const pathTo = (page: string) => localizedPath(locale, page);
+
+const desktopLinks = [
+  { page: "about", label: "nav.about", style: "left:68.6719%;top:1.5337%;width:20.3906%", image: "about-pc", width: "261", height: "169" },
+  { page: "ui-design", label: "nav.uidesign", style: "left:47.8125%;top:15.4397%;width:16.0156%", image: "uidesign-pc", width: "205", height: "187" },
+  { page: "illustration", label: "nav.illustration", style: "left:32.6562%;top:31.6973%;width:25.2344%", image: "illustration-pc", width: "323", height: "165" },
+  { page: "contact", label: "nav.contact", style: "left:7.5%;top:47.955%;width:17.9688%", image: "contact-pc", width: "230", height: "164" },
+] as const;
+
+const mobileLinks = [
+  { page: "about", label: "nav.about", style: "left:29.8667%;top:10.9819%;width:37.8667%", image: "about-sp", width: "284", height: "181" },
+  { page: "ui-design", label: "nav.uidesign", style: "left:49.3333%;top:28.876%;width:27.4667%", image: "uidesign-sp", width: "206", height: "188" },
+  { page: "illustration", label: "nav.illustration", style: "left:6.9333%;top:46.9638%;width:46.6667%", image: "illustration-sp", width: "350", height: "177" },
+  { page: "contact", label: "nav.contact", style: "left:3.0667%;top:65.6331%;width:33.2%", image: "contact-sp", width: "249", height: "177" },
+] as const;
+---
+
+<section aria-label={label}>
+  <div class="hidden mb:block relative w-full bg-white">
+    <OptimizedImage src="/assets/images/banner.webp" alt={label} class="block w-full h-auto" width="1920" height="1467" fetchpriority="high" />
+    {desktopLinks.map((link) => (
+      <a href={pathTo(link.page)} class="hot" style={link.style} aria-label={t(link.label)} title={t(link.label)}>
+        <OptimizedImage class="hot-still" src={`/assets/images/${link.image}.png`} alt="" width={link.width} height={link.height} decoding="async" />
+        <img class="hot-anim" src={`/assets/images/${link.image}.gif`} data-gif={`/assets/images/${link.image}.gif`} alt="" width={link.width} height={link.height} loading="lazy" decoding="async" />
+      </a>
+    ))}
+  </div>
+  <div class="mb:hidden relative w-full bg-white">
+    <OptimizedImage src="/assets/images/banner-mobile.webp" alt={label} class="block w-full h-auto" width="750" height="1548" fetchpriority="high" />
+    {mobileLinks.map((link) => (
+      <a href={pathTo(link.page)} class="hot" style={link.style} aria-label={t(link.label)} title={t(link.label)}>
+        <OptimizedImage class="hot-still" src={`/assets/images/${link.image}.png`} alt="" width={link.width} height={link.height} decoding="async" />
+        <img class="hot-anim" src={`/assets/images/${link.image}.gif`} data-gif={`/assets/images/${link.image}.gif`} alt="" width={link.width} height={link.height} loading="lazy" decoding="async" />
+      </a>
+    ))}
+  </div>
+</section>

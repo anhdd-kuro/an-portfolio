@@ -1,0 +1,34 @@
+---
+import type { CollectionEntry } from "astro:content";
+import OptimizedImage from "../OptimizedImage.astro";
+import ProjectGrid from "../ProjectGrid.astro";
+
+type PortfolioPageData = Extract<CollectionEntry<"pages">["data"], { kind: "portfolio" }>;
+
+interface Props {
+  content: PortfolioPageData;
+}
+
+const { content } = Astro.props;
+
+const isIllustration = content.category === "illustration";
+---
+
+<div class="px-6 mb:px-12 dt:px-20 pt-8 mb:pt-11.5">
+  <h1 class="sr-only">{content.heading}</h1>
+  <section class="flex flex-col items-center mb:flex-row mb:flex-wrap gap-8 mb:gap-19.5 mb:items-center" aria-label={content.introLabel}>
+    <OptimizedImage
+      src={isIllustration ? "/assets/images/illus.png" : "/assets/images/uidesign.png"}
+      alt={content.heading}
+      class:list={["block w-auto max-w-full object-contain shrink-0", isIllustration ? "h-43.25 mb:h-78.75" : "h-43.75 mb:h-79.25"]}
+      width={isIllustration ? "1067" : "949"}
+      height={isIllustration ? "867" : "793"}
+    />
+    <p class="text-body text-left mb:text-justify max-w-137.5 min-w-0 mb:flex-1 mb:basis-90 text-pretty">{content.intro}</p>
+  </section>
+  <section class="mt-16" aria-label={content.projectsLabel}>
+    <h2 class="sr-only">{content.projectsLabel}</h2>
+    <ProjectGrid lang={content.locale} category={content.category} />
+  </section>
+  <div class="h-25" aria-hidden="true"></div>
+</div>

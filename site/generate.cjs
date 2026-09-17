@@ -1,5 +1,6 @@
-// Codemod: legacy static HTML (with data-i18n runtime attrs) -> per-locale Astro pages.
-// Run from inside site/ with: node generate.cjs
+// Archived migration codemod: legacy static HTML -> per-locale Astro pages.
+// The live site now uses collection-backed shared routes. Do not run this
+// utility against the current source tree because it recreates removed pages.
 const fs = require("fs");
 
 const path = require("path");
@@ -10,20 +11,33 @@ const LEGACY_DIR = path.resolve(__dirname, "../tmp/backup/site-legacy-20260910")
 
 const PAGES_DIR = path.resolve(__dirname, "src/pages");
 
+const PROJECTS_DIR = path.resolve(__dirname, "src/data/projects");
+
 const ui = require("./src/i18n/ui.json");
 
 const PREFIX = { en: "en", ja: "jp", vi: "vi" };
 
 const LANGS = ["en", "ja", "vi"];
 
-const allFiles = fs
-  .readdirSync(LEGACY_DIR)
-  .filter((f) => f.endsWith(".html") && f !== "project.html");
+const GENERATED_FILES = new Set(["404.html", "about.html", "contact.html"]);
 
-const slugSet = new Set(allFiles.map((f) => f.replace(/\.html$/, ""))); // includes 'index'
+const allFiles = fs.readdirSync(LEGACY_DIR).filter((f) => GENERATED_FILES.has(f));
+
+const projectSlugs = fs
+  .readdirSync(PROJECTS_DIR)
+  .filter((entry) => fs.statSync(path.join(PROJECTS_DIR, entry)).isDirectory());
+
+const slugSet = new Set([...allFiles.map((f) => f.replace(/\.html$/, "")), ...projectSlugs]);
 
 function fixAssetPaths(html) {
   return html.replace(/(=["'])assets\//g, "$1/assets/").replace(/\(assets\//g, "(/assets/");
+}
+
+function optimizeImageMarkup(html) {
+  return html.replace(
+    /<img(\s[^>]*?\bsrc=(['"])(\/assets\/(?:images|icons)\/[^'"]+\.(?:png|jpe?g|webp|avif))\2[^>]*)>/gi,
+    (_, attributes) => `<OptimizedImage${attributes} />`,
+  );
 }
 
 function applyLangToDom($, lang) {
@@ -113,6 +127,7 @@ function generatePage(file) {
     fixInternalLinks($, lang);
     let fragment = $.html($root.contents());
     fragment = fixAssetPaths(fragment);
+    fragment = optimizeImageMarkup(fragment);
 
     const dict = ui[lang] || {};
     const localizedTitle = dict["meta.title." + (slug === "home" ? "home" : slug)] || title;
@@ -131,8 +146,13 @@ function writeAstroFile(prefix, outSlug, data) {
 
   const content = `---
 import BaseLayout from '${"../".repeat(depth)}layouts/BaseLayout.astro';
+
+import OptimizedImage from '${"../".repeat(depth)}components/OptimizedImage.astro';
+
 const title = ${JSON.stringify(data.localizedTitle)};
+
 const description = ${JSON.stringify(data.description)};
+
 const ogImage = ${JSON.stringify(data.ogImage)};
 ---
 <BaseLayout lang=${JSON.stringify(data.lang)} page=${JSON.stringify(data.slug)} title={title} description={description} ogImage={ogImage} divider={${data.hasDivider}}>
@@ -160,8 +180,13 @@ for (const file of allFiles) {
 
     const content = `---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+import OptimizedImage from '../components/OptimizedImage.astro';
+
 const title = ${JSON.stringify(results.en.localizedTitle)};
+
 const description = ${JSON.stringify(results.en.description)};
+
 const ogImage = ${JSON.stringify(results.en.ogImage)};
 ---
 <BaseLayout lang="en" page="404" title={title} description={description} ogImage={ogImage} divider={${results.en.hasDivider}}>

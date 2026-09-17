@@ -1,0 +1,12 @@
+{
+  "kind": "portfolio",
+  "locale": "ja",
+  "route": "ui-design",
+  "title": "UI/UXデザイン | Thuy An Portfolio",
+  "description": "Web、ランディングページ、アプリUIを掲載したThuy AnのUI/UXデザインポートフォリオです。",
+  "heading": "UI/UXデザイン",
+  "category": "ui-design",
+  "intro": "UIデザインの経験は約3年です。TikTok、小規模ブランド、そして日本企業での案件に携わってきました。クライアントとの直接のやり取りや、職種をまたいだチームとの協働も経験しています。",
+  "introLabel": "紹介",
+  "projectsLabel": "UI/UX作品"
+}

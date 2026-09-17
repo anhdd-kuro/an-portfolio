@@ -1,0 +1,65 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { localizedPath } from "../../i18n/config";
+import { useTranslations } from "../../i18n/utils";
+import OptimizedImage from "../OptimizedImage.astro";
+import ProjectGrid from "../ProjectGrid.astro";
+import HomeHero from "./HomeHero.astro";
+
+type HomePageData = Extract<CollectionEntry<"pages">["data"], { kind: "home" }>;
+
+interface Props {
+  content: HomePageData;
+}
+
+const { content } = Astro.props;
+
+const t = useTranslations(content.locale);
+
+const pathTo = (page: string) => localizedPath(content.locale, page);
+---
+
+<h1 class="sr-only">{content.heading}</h1>
+<HomeHero locale={content.locale} label={content.heroLabel} />
+
+<section aria-labelledby="about-h" class="flex flex-col items-center pt-14 px-6 mb:flex-row mb:flex-wrap mb:gap-10 mb:px-12 mb:pt-20 mb:items-start dt:gap-19.75 dt:px-21 dt:pt-29">
+  <h2 id="about-h" class="sr-only">{t("nav.about")}</h2>
+  <OptimizedImage src="/assets/images/aboutme.png" alt={t("nav.about")} class="w-50 max-w-full h-auto object-contain mb:w-70 mb:h-75 mb:shrink-0 dt:w-95.75 dt:h-100" loading="lazy" />
+  <div class="w-full mb:w-auto mb:max-w-162.5 mb:flex-1 mb:basis-75 mb:min-w-0 mb:pt-10 dt:basis-95 dt:pt-21">
+    <p class="text-body-loose text-pretty text-left mt-8 mb:text-body mb:mt-0">{content.about}</p>
+    <a href={pathTo("about")} class="img-btn block w-34.5 h-16 mx-auto mt-6 mb:mt-8" style="background-image:url(/assets/images/readmore.png)" aria-label={t("nav.readmore")} title={t("nav.readmore")}></a>
+  </div>
+</section>
+
+<section aria-labelledby="illus-h" class="flex flex-col items-center pt-18 px-6 mb:flex-row-reverse mb:flex-wrap mb:gap-14 mb:px-15 mb:pt-22 mb:justify-center mb:items-start dt:grid dt:grid-cols-2">
+  <h2 id="illus-h" class="sr-only">{t("nav.illustration")}</h2>
+  <div class="flex flex-col items-center w-full mb:w-123 mb:max-w-full dt:w-full dt:max-w-123 dt:justify-self-end">
+    <OptimizedImage src="/assets/images/illus.png" alt={t("nav.illustration")} class="w-55 max-w-full h-auto object-contain mb:w-full mb:h-100" loading="lazy" />
+    <p class="text-body-loose text-pretty text-left mt-8 mb:text-body mb:text-justify mb:mt-10">{content.illustrationIntro}</p>
+    <a href={pathTo("illustration")} class="img-btn block w-34.5 h-16 mx-auto mt-8 hidden dt:block" style="background-image:url(/assets/images/readmore.png)" aria-label={t("nav.readmore")} title={t("nav.readmore")}></a>
+  </div>
+  <div class="w-full max-w-[320px] mt-10 mb:w-158 mb:max-w-full mb:mt-0 dt:w-full dt:order-first">
+    <ProjectGrid lang={content.locale} category="illustration" variant="home" limit={4} />
+    <a href={pathTo("illustration")} class="img-btn block w-34.5 h-16 mx-auto mt-6 mb:mt-8 dt:hidden" style="background-image:url(/assets/images/readmore.png)" aria-label={t("nav.readmore")} title={t("nav.readmore")}></a>
+  </div>
+</section>
+
+<section aria-labelledby="ui-h" class="flex flex-col items-center pt-24 px-6 mb:flex-row-reverse mb:flex-wrap mb:gap-14 mb:px-15 mb:pt-30 mb:justify-center mb:items-start dt:grid dt:grid-cols-2">
+  <h2 id="ui-h" class="sr-only">{t("nav.uidesign")}</h2>
+  <div class="flex flex-col items-center w-full mb:w-119.75 mb:max-w-full dt:w-full dt:max-w-119.75 dt:justify-self-start">
+    <OptimizedImage src="/assets/images/uidesign.png" alt={t("nav.uidesign")} class="w-55 max-w-full h-auto object-contain mb:w-full mb:h-100" loading="lazy" />
+    <p class="text-body-loose text-pretty text-left mt-8 mb:text-body mb:text-justify mb:mt-10">{content.uiIntro}</p>
+    <a href={pathTo("ui-design")} class="img-btn block w-34.5 h-16 mx-auto mt-8 hidden dt:block" style="background-image:url(/assets/images/readmore.png)" aria-label={t("nav.readmore")} title={t("nav.readmore")}></a>
+  </div>
+  <div class="w-full max-w-[320px] mt-10 mb:w-158 mb:max-w-full mb:mt-0 dt:w-full">
+    <ProjectGrid lang={content.locale} category="ui-design" variant="home" limit={4} />
+    <a href={pathTo("ui-design")} class="img-btn block w-34.5 h-16 mx-auto mt-6 mb:mt-8 dt:hidden" style="background-image:url(/assets/images/readmore.png)" aria-label={t("nav.readmore")} title={t("nav.readmore")}></a>
+  </div>
+</section>
+
+<section aria-labelledby="contact-h" class="pt-30 flex flex-col items-center">
+  <h2 id="contact-h" class="sr-only">{t("nav.contact")}</h2>
+  <OptimizedImage src="/assets/images/contact.png" alt={t("nav.contact")} class="w-70 max-w-[60%] mb:w-85 mb:max-w-full dt:w-96.75 h-auto object-contain" loading="lazy" />
+  <p class="mt-12 max-w-220 px-6 text-center font-normal text-[16px] leading-6 text-pretty" set:html={content.contact} />
+  <div class="h-19.75" aria-hidden="true"></div>
+</section>

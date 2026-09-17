@@ -1,0 +1,10 @@
+{
+  "kind": "not-found",
+  "locale": "ja",
+  "route": "404",
+  "title": "ページが見つかりません | Thuy An Portfolio",
+  "description": "お探しのページは見つかりませんでした。",
+  "heading": "404",
+  "message": "お探しのページは存在しません。",
+  "homeLabel": "ホーム"
+}

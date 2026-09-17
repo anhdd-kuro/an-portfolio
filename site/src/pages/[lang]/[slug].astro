@@ -1,0 +1,42 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import LocalizedPage from "../../components/LocalizedPage.astro";
+import ProjectPage from "../../components/pages/ProjectPage.astro";
+import { projects, type Project, type ProjectLocale } from "../../data/projects";
+import { localeEntries, routeFromLocale } from "../../i18n/config";
+
+interface PageProps {
+  type: "page";
+  entry: CollectionEntry<"pages">;
+}
+
+interface ProjectProps {
+  type: "project";
+  locale: ProjectLocale;
+  project: Project;
+}
+
+export async function getStaticPaths() {
+  const localizedPages = (await getCollection("pages")).filter((entry) => entry.data.kind !== "home");
+
+  const pagePaths = localizedPages.map((entry) => ({
+    params: { lang: routeFromLocale(entry.data.locale), slug: entry.data.route },
+    props: { type: "page", entry } satisfies PageProps,
+  }));
+
+  const projectPaths = projects.flatMap((project) =>
+    localeEntries.map(({ locale, route }) => ({
+      params: { lang: route, slug: project.slug },
+      props: { type: "project", locale, project } satisfies ProjectProps,
+    })),
+  );
+
+  return [...pagePaths, ...projectPaths];
+}
+
+// SAFETY: `getStaticPaths` supplies exactly one discriminated props shape for every generated route.
+const props = Astro.props as PageProps | ProjectProps;
+---
+
+{props.type === "page" && <LocalizedPage entry={props.entry} />}
+{props.type === "project" && <ProjectPage locale={props.locale} project={props.project} />}

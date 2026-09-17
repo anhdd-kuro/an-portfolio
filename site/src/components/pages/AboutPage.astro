@@ -1,0 +1,26 @@
+---
+import type { CollectionEntry } from "astro:content";
+import OptimizedImage from "../OptimizedImage.astro";
+
+type AboutPageData = Extract<CollectionEntry<"pages">["data"], { kind: "about" }>;
+
+interface Props {
+  content: AboutPageData;
+}
+
+const { content } = Astro.props;
+---
+
+<div class="px-6 mb:px-16 dt:px-35 pt-10 mb:pt-16.5">
+  <h1 class="sr-only">{content.heading}</h1>
+  <OptimizedImage src="/assets/images/aboutme.png" alt={content.heading} class="block h-47.25 mb:h-85.75 w-auto max-w-full object-contain mx-auto" width="848" height="886" />
+  <div class="mt-13 flex flex-col gap-7">
+    {content.sections.map((section) => (
+      <section>
+        <h2 class="font-extrabold text-[18px] mb-2">{section.title}</h2>
+        <p class="text-[16px] leading-5.5 font-normal text-pretty" set:html={section.body} />
+      </section>
+    ))}
+  </div>
+</div>
+<div class="h-25 mb:h-43.25" aria-hidden="true"></div>
