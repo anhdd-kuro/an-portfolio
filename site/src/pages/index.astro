@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Thuy An | Illustrator &amp; UI Designer</title>
+  <meta http-equiv="refresh" content="0; url=/en/" />
+  <script>
+    (function () {
+      var langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en'];
+      var target = 'en';
+      for (var i = 0; i < langs.length; i++) {
+        var l = (langs[i] || '').toLowerCase();
+        if (l.indexOf('ja') === 0) { target = 'jp'; break; }
+        if (l.indexOf('vi') === 0) { target = 'vi'; break; }
+        if (l.indexOf('en') === 0) { target = 'en'; break; }
+      }
+      location.replace('/' + target + '/');
+    })();
+  </script>
+</head>
+<body>
+  <p>Redirecting… <a href="/en/">Continue in English</a> / <a href="/jp/">日本語へ</a> / <a href="/vi/">Tiếng Việt</a></p>
+</body>
+</html>

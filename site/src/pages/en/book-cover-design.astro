@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const title = "Book cover design | Thuy An Portfolio";
+const description = "・Category : Book cover design ・Client : Quang Van publishing company, Wabooks vn ・Tool used : Adobe Illustrator, Adobe Photoshop, Procreate";
+const ogImage = "/assets/images/work/bff049fc167c.webp";
+---
+<BaseLayout lang="en" page="book-cover-design" title={title} description={description} ogImage={ogImage} divider={true}>
+
+    <div class="w-full"><img src="/assets/images/work/bff049fc167c.webp" alt="Cover" width="1739" height="1739" class="block w-full h-[240px] mb:h-[360px] dt:h-[460px] object-cover object-center" fetchpriority="high" decoding="async"></div>
+
+    <article class="px-6 mb:px-16 dt:px-[140px] pt-10">
+      <header>
+        <h1 class="font-extrabold text-2xl mb:text-[32px] leading-10">Book cover design</h1>
+      </header>
+      <p class="mt-5 text-[16px] leading-6 font-normal text-pretty break-words">・Category : Book cover design<br>・Client : Quang Van publishing company, Wabooks vn<br>・Tool used : Adobe Illustrator, Adobe Photoshop, Procreate</p>
+
+      <section class="mt-14 mb:mt-16" aria-label="Artwork">
+        <h2 class="sr-only">Artwork</h2>
+        <div class="grid grid-cols-1 mb:grid-cols-2 gap-10 mb:gap-[50px] items-start">
+        <div class="w-full mx-auto max-w-[490px]"><img src="/assets/images/work/be87c1380a24.webp" alt="Artwork 1" width="580" height="858" class="block w-full h-auto rounded-[6px]" loading="lazy" decoding="async"></div>
+        <div class="w-full mx-auto max-w-[490px]"><img src="/assets/images/work/facd7149d8f0.webp" alt="Artwork 2" width="580" height="858" class="block w-full h-auto rounded-[6px]" loading="lazy" decoding="async"></div>
+        <div class="w-full mx-auto max-w-[490px]"><img src="/assets/images/work/f0ffc90ad6de.webp" alt="Artwork 3" width="580" height="858" class="block w-full h-auto rounded-[6px]" loading="lazy" decoding="async"></div>
+        <div class="w-full mx-auto max-w-[490px]"><img src="/assets/images/work/31fb62950155.webp" alt="Artwork 4" width="580" height="858" class="block w-full h-auto rounded-[6px]" loading="lazy" decoding="async"></div>
+        <div class="w-full mx-auto max-w-[490px]"><img src="/assets/images/work/7dbb1ab12bff.webp" alt="Artwork 5" width="580" height="858" class="block w-full h-auto rounded-[6px]" loading="lazy" decoding="async"></div>
+        <div class="w-full mx-auto max-w-[490px]"><img src="/assets/images/work/7b859cb59390.webp" alt="Artwork 6" width="580" height="858" class="block w-full h-auto rounded-[6px]" loading="lazy" decoding="async"></div>
+        <div class="w-full mx-auto max-w-[490px]"><img src="/assets/images/work/e1283d756f70.webp" alt="Artwork 7" width="580" height="858" class="block w-full h-auto rounded-[6px]" loading="lazy" decoding="async"></div>
+        </div>
+        </section>
+
+      <div class="mt-[72px] mb:mt-[88px] flex flex-col items-center gap-10 mb:gap-11">
+
+        <p class="font-extrabold text-2xl mb:text-[32px] leading-10 text-center">Thanks for watching!</p>
+      </div>
+
+      <a href="/en/illustration" id="back-link" class="img-btn block w-[136px] h-[26px] mt-[68px] mb-[84px] !bg-left" style="background-image:url(/assets/icons/back.png)" aria-label="Back" title="Back"></a>
+    </article>
+  
+</BaseLayout>

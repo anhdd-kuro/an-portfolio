@@ -1,0 +1,78 @@
+---
+import ui from '../i18n/ui.json';
+
+export interface Props {
+  lang: 'en' | 'ja' | 'vi';
+  page: string; // 'home' or the bare page slug (no .html)
+}
+const { lang, page } = Astro.props;
+
+const PREFIX: Record<string, string> = { en: 'en', ja: 'jp', vi: 'vi' };
+const t = (key: string) => (ui as any)[lang]?.[key] ?? (ui as any).en[key] ?? key;
+
+function hrefFor(targetLang: 'en' | 'ja' | 'vi', slug = page) {
+  const p = PREFIX[targetLang];
+  return slug === 'home' ? `/${p}` : `/${p}/${slug}`;
+}
+
+const LANGS: Array<{ code: 'en' | 'ja' | 'vi'; short: string; name: string; top: string; height: string }> = [
+  { code: 'en', short: 'EN', name: 'English', top: '4.9738%', height: '30.2356%' },
+  { code: 'ja', short: 'JA', name: '日本語', top: '35.2094%', height: '30.3665%' },
+  { code: 'vi', short: 'VI', name: 'Tiếng Việt', top: '65.5759%', height: '28.1414%' },
+];
+---
+<header class="relative">
+  <div class="h-[60px] mb:h-[100px] flex items-center justify-between px-4 mb:px-6 gap-4">
+    <a href={hrefFor(lang, 'home')} class="shrink-0 block h-[60px] w-[60px] mb:h-[100px] mb:w-[100px]" title={t('nav.home')} aria-label={t('nav.home')}>
+      <img src="/assets/images/logo.png" alt="Thuy An" class="h-full w-full object-contain" width="100" height="100">
+    </a>
+
+    <!-- Desktop / tablet nav -->
+    <nav class="hidden mb:flex items-center justify-end gap-5 dt:gap-8 min-w-0" aria-label="Main">
+      <a href={hrefFor(lang, 'about')} class="shrink-0 h-16 dt:h-20 img-btn" title={t('nav.about')} aria-label={t('nav.about')}><img src="/assets/images/nav-aboutme.png" alt="" class="h-full w-auto" height="80"></a>
+      <a href={hrefFor(lang, 'illustration')} class="shrink-0 h-16 dt:h-20 img-btn" title={t('nav.illustration')} aria-label={t('nav.illustration')}><img src="/assets/images/nav-illustration.png" alt="" class="h-full w-auto" height="80"></a>
+      <a href={hrefFor(lang, 'ui-design')} class="shrink-0 h-16 dt:h-20 img-btn" title={t('nav.uidesign')} aria-label={t('nav.uidesign')}><img src="/assets/images/nav-uidesign.png" alt="" class="h-full w-auto" height="80"></a>
+      <a href={hrefFor(lang, 'contact')} class="shrink-0 h-16 dt:h-20 img-btn" title={t('nav.contact')} aria-label={t('nav.contact')}><img src="/assets/images/nav-contact.png" alt="" class="h-full w-auto" height="80"></a>
+      <a href="https://www.facebook.com/vuive194/" target="_blank" rel="noopener" class="shrink-0 w-9 h-9 dt:w-11 dt:h-11 img-btn" style="background-image:url(/assets/icons/fb.png)" aria-label="Facebook"></a>
+      <a href="https://www.instagram.com/thuyan.illustration/" target="_blank" rel="noopener" class="shrink-0 w-9 h-9 dt:w-11 dt:h-11 img-btn" style="background-image:url(/assets/icons/instagram.png)" aria-label="Instagram"></a>
+      <div class="lang-dd shrink-0 w-10 h-10 dt:w-[50px] dt:h-[50px]">
+        <button type="button" class="lang-dd-btn img-btn" style="background-image:url(/assets/icons/lang.png)" aria-haspopup="listbox" aria-expanded="false" aria-label={t('nav.lang')} title={t('nav.lang')}></button>
+        <div class="lang-dd-list" role="listbox" aria-label="Language">
+          <img src="/assets/icons/lang-panel.png" alt="" width="497" height="382">
+          {LANGS.map((l) => (
+            <a role="option" class={`lang-btn${l.code === lang ? ' active' : ''}`} aria-selected={l.code === lang ? 'true' : 'false'} href={hrefFor(l.code)} style={`top:${l.top};height:${l.height}`}><span class="sr-only">{l.name}</span></a>
+          ))}
+        </div>
+      </div>
+    </nav>
+
+    <!-- Mobile: hamburger -->
+    <button id="menu-toggle" type="button" class="mb:hidden shrink-0 w-8 h-8 img-btn" style="background-image:url(/assets/icons/menu.png)" aria-controls="mobile-menu" aria-expanded="false" aria-label={t('nav.menu')} title={t('nav.menu')}></button>
+  </div>
+
+  <!-- Mobile menu overlay -->
+  <div id="mobile-menu" class="mb:hidden" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="menu-bar">
+      <a href={hrefFor(lang, 'home')} class="menu-logo" title={t('nav.home')} aria-label={t('nav.home')}><img src="/assets/images/logo.png" alt="Thuy An" width="46" height="46"></a>
+      <button id="menu-close" type="button" class="img-btn" style="background-image:url(/assets/icons/close.png)" aria-label={t('nav.close')} title={t('nav.close')}></button>
+    </div>
+    <nav class="menu-list" aria-label="Pages">
+      <a href={hrefFor(lang, 'about')} title={t('nav.about')} aria-label={t('nav.about')}><img src="/assets/images/menu-about.png" alt="About me" width="256" height="264"></a>
+      <a href={hrefFor(lang, 'ui-design')} title={t('nav.uidesign')} aria-label={t('nav.uidesign')}><img src="/assets/images/menu-uidesign.png" alt="UI design" width="340" height="285"></a>
+      <a href={hrefFor(lang, 'illustration')} title={t('nav.illustration')} aria-label={t('nav.illustration')}><img src="/assets/images/menu-illustration.png" alt="Illustration" width="341" height="286"></a>
+      <a href={hrefFor(lang, 'contact')} title={t('nav.contact')} aria-label={t('nav.contact')}><img src="/assets/images/menu-contact.png" alt="Contact" width="288" height="277"></a>
+    </nav>
+    <div class="menu-social">
+      <a href="https://www.facebook.com/vuive194/" target="_blank" rel="noopener" class="img-btn" style="background-image:url(/assets/icons/fb.png)" aria-label="Facebook"></a>
+      <a href="https://www.instagram.com/thuyan.illustration/" target="_blank" rel="noopener" class="img-btn" style="background-image:url(/assets/icons/instagram.png)" aria-label="Instagram"></a>
+    </div>
+    <div class="menu-lang" role="group" aria-label="Language">
+      {LANGS.map((l) => (
+        <a class={`lang-btn${l.code === lang ? ' active' : ''}`} href={hrefFor(l.code)}>{l.short}</a>
+      ))}
+    </div>
+    <footer class="site-footer">
+      <span>{t('footer.copy')}</span>
+    </footer>
+  </div>
+</header>

@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const title = "Về tôi | Thuy An Portfolio";
+const description = "About Thuy An – illustrator and UI designer from Vietnam based in Fukuoka: employment overview, work experience and design skills.";
+const ogImage = "/assets/images/logo.png";
+---
+<BaseLayout lang="vi" page="about" title={title} description={description} ogImage={ogImage} divider={true}>
+
+    <div class="px-6 mb:px-16 dt:px-[140px] pt-10 mb:pt-[66px]">
+      <h1 class="sr-only">About me</h1>
+      <img src="/assets/images/aboutme.png" alt="About me – hand-drawn portrait" class="block h-[189px] mb:h-[343px] w-auto max-w-full object-contain mx-auto" width="848" height="886">
+      <div class="mt-[52px] flex flex-col gap-7">
+      <section>
+        <h2 class="font-extrabold text-[18px] mb-2">[Tổng quan nơi làm việc]</h2>
+        <p class="text-[16px] leading-[22px] font-normal text-pretty">・Khi còn là sinh viên, mình thực tập và phụ trách thiết kế đồ hoạ 2D như tờ rơi, poster.<br>・Mình tự thiết kế và bán sản phẩm của mình như bao lì xì, bưu thiếp.<br>・Làm freelance, nhận đơn từ nhiều nhà xuất bản ở Việt Nam, làm cả digital và vẽ tay.<br>・Nhận đơn từ một nhà xuất bản truyện tranh Trung Quốc, cùng bạn lập studio khởi nghiệp và phụ trách phần tô màu truyện tranh.<br>・Hiện phụ trách illustration và thiết kế UI/UX tại công ty CaeruxLab.</p>
+      </section>
+      <section>
+        <h2 class="font-extrabold text-[18px] mb-2">[Kinh nghiệm làm việc]</h2>
+        <p class="text-[16px] leading-[22px] font-normal text-pretty">・Đến tháng 06/2018<br>Thực tập tại một công ty thiết kế ở Việt Nam<br>Đối tác: công ty Việt Nam<br>Nội dung: phụ trách thiết kế đồ hoạ 2D như tờ rơi, poster<br>Số người trong nhóm: làm một mình<br>Công cụ: Photoshop, Illustrator<br><br>・10/2018 - 04/2019<br>Khởi nghiệp cùng bạn từ đơn hàng của một công ty Trung Quốc<br>Đối tác: công ty truyện tranh Trung Quốc<br>Nội dung: từ name (bản phác) sang bản nét, tô màu và hoàn thiện<br>Số người trong nhóm: 6 người<br>Với vai trò leader, mình chia việc, quản lý chất lượng và tham gia vẽ<br>Công cụ: Photoshop, Illustrator<br><br>・04/2019 - 03/2022<br>Vừa học trường tiếng Nhật, vừa làm freelance từ xa<br>Đối tác: các nhà xuất bản ở Việt Nam<br>Nội dung: nhận bản thảo và làm thành sách tranh<br>Số người trong nhóm: làm một mình<br>Công cụ: Photoshop, Illustrator<br><br>・03/2022 - 12/2024<br>Làm designer tại công ty CaeruxLab<br>Nội dung: thiết kế UI/UX, thiết kế mini game<br>Công cụ: Photoshop, Illustrator, Adobe XD, Figma<br><br>・01/2025 - hiện tại<br>Ký hợp đồng uỷ thác công việc với Caerux Inc. (trụ sở chính) và làm việc với vai trò designer<br>Nội dung: thiết kế UI/UX, vẽ illustration<br>Công cụ: Photoshop, Illustrator, Adobe XD, Figma</p>
+      </section>
+      <section>
+        <h2 class="font-extrabold text-[18px] mb-2">[Kỹ năng của một designer]</h2>
+        <p class="text-[16px] leading-[22px] font-normal text-pretty">・Photoshop (kinh nghiệm thực tế: khoảng 8 năm)<br>・Illustrator (kinh nghiệm thực tế: khoảng 8 năm)<br>・Adobe XD (kinh nghiệm thực tế: khoảng 3 năm)<br>・Figma (kinh nghiệm thực tế: khoảng 2 năm)<br>・Vẽ tay</p>
+      </section>
+      </div>
+    </div>
+    <div class="h-[100px] mb:h-[173px]" aria-hidden="true"></div>
+  
+</BaseLayout>

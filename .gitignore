@@ -1,0 +1,21 @@
+# OS and local editor files
+.DS_Store
+.idea/
+.vscode/
+
+# Node and Astro build output
+**/node_modules/
+site/.astro/
+site/dist/
+
+# Local capture/bundling artifacts
+site/preview-pages.json
+site/*.log
+
+# Local-only material moved out of the public repository
+tmp/
+
+# Local environment files
+.env
+.env.*
+!.env.example

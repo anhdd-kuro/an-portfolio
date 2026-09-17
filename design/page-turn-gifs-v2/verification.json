@@ -1,0 +1,46 @@
+[
+  {
+    "file": "contact.gif",
+    "frames": 6,
+    "duration_ms": 1000,
+    "size": [
+      560,
+      512
+    ],
+    "transparency": true,
+    "loop": false
+  },
+  {
+    "file": "about-me.gif",
+    "frames": 6,
+    "duration_ms": 1000,
+    "size": [
+      560,
+      512
+    ],
+    "transparency": true,
+    "loop": false
+  },
+  {
+    "file": "ui-design.gif",
+    "frames": 6,
+    "duration_ms": 1000,
+    "size": [
+      560,
+      512
+    ],
+    "transparency": true,
+    "loop": false
+  },
+  {
+    "file": "illustration.gif",
+    "frames": 6,
+    "duration_ms": 1000,
+    "size": [
+      560,
+      512
+    ],
+    "transparency": true,
+    "loop": false
+  }
+]

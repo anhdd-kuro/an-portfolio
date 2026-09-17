@@ -1,0 +1,68 @@
+---
+import Header from '../components/Header.astro';
+import ui from '../i18n/ui.json';
+import '../styles/global.css';
+
+export interface Props {
+  lang: 'en' | 'ja' | 'vi';
+  page: string; // 'home' or bare slug, matches body[data-page] on the legacy site
+  title: string;
+  description: string;
+  ogImage?: string;
+  divider?: boolean;
+}
+const {
+  lang,
+  page,
+  title,
+  description,
+  ogImage = '/assets/images/logo.png',
+  divider = true,
+} = Astro.props;
+
+const t = (key: string) => (ui as any)[lang]?.[key] ?? (ui as any).en[key] ?? key;
+const PREFIX: Record<string, string> = { en: 'en', ja: 'jp', vi: 'vi' };
+const altPath = (p: string) => (page === 'home' ? `/${p}` : `/${p}/${page}`);
+const htmlLang = lang === 'ja' ? 'ja' : lang === 'vi' ? 'vi' : 'en';
+---
+<!DOCTYPE html>
+<html lang={htmlLang} class={htmlLang === 'ja' ? 'font-jp' : ''}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content={ogImage} />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="icon" type="image/png" href="/assets/images/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hina+Mincho&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <link rel="alternate" hreflang="en" href={altPath(PREFIX.en)} />
+  <link rel="alternate" hreflang="ja" href={altPath(PREFIX.ja)} />
+  <link rel="alternate" hreflang="vi" href={altPath(PREFIX.vi)} />
+  <link rel="alternate" hreflang="x-default" href={altPath(PREFIX.en)} />
+</head>
+<body data-page={page} class="font-serif text-ink bg-paper">
+<div class="w-full max-w-[1280px] mx-auto bg-paper min-h-screen flex flex-col overflow-x-hidden">
+
+  <Header lang={lang} page={page} />
+
+  {divider && <div class="divider" role="presentation"></div>}
+
+  <main class="flex-1">
+    <slot />
+  </main>
+
+  <footer class="site-footer">
+    <span>{t('footer.copy')}</span>
+  </footer>
+</div>
+<a href="#" id="side-scroll" title={t('nav.scroll')} aria-label={t('nav.scroll')} data-scroll-label={t('nav.scroll')} data-totop-label={t('nav.totop')}><span class="sr-only">{t('nav.scroll')}</span></a>
+<script src="/assets/js/main.js" defer></script>
+</body>
+</html>

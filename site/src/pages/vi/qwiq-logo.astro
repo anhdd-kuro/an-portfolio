@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const title = "Qwiq logo | Thuy An Portfolio";
+const description = "Thiết kế logo cho QwiQ - Karabiner company.";
+const ogImage = "/assets/images/projects/qwiq-logo/thumb.webp";
+---
+<BaseLayout lang="vi" page="qwiq-logo" title={title} description={description} ogImage={ogImage} divider={true}>
+
+    <article class="px-6 mb:px-16 dt:px-[140px] pt-10">
+      <header>
+        <h1 class="font-extrabold text-2xl mb:text-[32px] leading-10">Qwiq logo</h1>
+      </header>
+      <p class="mt-5 text-[16px] leading-6 font-normal text-pretty break-words max-w-[900px]">Thiết kế logo cho QwiQ - Karabiner company.</p>
+      <p class="mt-5 text-[16px] leading-6 font-medium">Hạng mục : Thiết kế logo<br>Khách hàng : QwiQ - Karabiner company<br>Công cụ : Adobe XD, Adobe Illustrator</p>
+
+      <section class="mt-14 mb:mt-16" aria-label="Artwork">
+        <h2 class="sr-only">Tác phẩm</h2>
+        <div class="grid grid-cols-1 gap-10 mb:gap-[50px] items-start">
+        <div class="w-full max-w-[1000px] mx-auto"><img src="/assets/images/projects/qwiq-logo/s01.webp" alt="QwiQ logo design board" width="2000" height="3313" class="block w-full h-auto rounded-[6px]" loading="lazy" decoding="async"></div>
+        <div class="w-full max-w-[490px] mx-auto"><img src="/assets/images/projects/qwiq-logo/s02.webp" alt="QwiQ icon logo" width="822" height="800" class="block w-full h-auto rounded-[6px]" loading="lazy" decoding="async"></div>
+        </div>
+      </section>
+
+      <div class="mt-[60px] flex flex-col items-center gap-8">
+        <p class="font-extrabold text-2xl mb:text-[32px] leading-10 text-center">Cảm ơn bạn đã xem!</p>
+      </div>
+
+      <a href="/vi/ui-design" id="back-link" class="img-btn block w-[136px] h-[26px] mt-[68px] mb-[84px] !bg-left" style="background-image:url(/assets/icons/back.png)" aria-label="Quay lại" title="Quay lại"></a>
+    </article>
+
+</BaseLayout>
