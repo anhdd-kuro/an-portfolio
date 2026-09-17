@@ -13,9 +13,15 @@ excluded from the public repository.
   page/locale, all sharing `src/layouts/BaseLayout.astro` and
   `src/components/Header.astro` instead of copy-pasting header/footer markup
   into every page like the old site did.
-- **Tailwind CSS**, compiled at build time via `@astrojs/tailwind` (was the
+- **Tailwind CSS**, compiled at build time via `@tailwindcss/vite` (was the
   Play CDN before - same config, same utility classes, no runtime CDN
   dependency any more).
+- **Oxlint** with `@shadcn/lint` registered for future design-system rules;
+  no `@shadcn/lint` rules are enabled yet. The generic anti-slop rules are
+  vendored under `tools/oxlint/anti-slop/` and enabled in `.oxlintrc.json`.
+- **Oxfmt**, used to format supported source files and enforce formatting in CI.
+  Oxfmt does not format `.astro` files, so Astro template formatting remains
+  governed by the Astro parser and build.
 - Plain JS (`public/assets/js/main.js`) for the mobile menu, banner hover/tap
   hotspots, the language dropdown open/close, and the scroll/back-to-top
   button. No framework.
@@ -33,8 +39,9 @@ src/pages/vi/...
 
 Each of the ~30 source pages was run through `generate.cjs` (kept in this
 folder) once, which:
+
 - read the legacy HTML in `../tmp/backup/site-legacy-20260910/`,
-- applied the *same* substitution the old `main.js` did at runtime for
+- applied the _same_ substitution the old `main.js` did at runtime for
   `data-i18n` / `data-i18n-html` / `data-i18n-title` / `data-i18n-alt`
   (using `src/i18n/ui.json`, extracted from the legacy `translations.js`),
   but baked into static HTML per locale instead of swapped client-side,
@@ -72,8 +79,14 @@ visitors.
 npm install
 npm run dev       # http://localhost:4321
 npm run build     # -> dist/
+npm run lint      # Oxlint + @shadcn/lint + anti-slop rules
+npm run format    # format supported files with Oxfmt
+npm run format:check
 npm run preview
 ```
+
+GitHub Actions runs `npm ci`, `npm run lint`, `npm run format:check`, and
+`npm run build` on pushes to `main` and on pull requests.
 
 ## Known follow-ups
 

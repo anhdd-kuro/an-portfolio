@@ -9,12 +9,17 @@
     (function () {
       var langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en'];
       var target = 'en';
+
       for (var i = 0; i < langs.length; i++) {
         var l = (langs[i] || '').toLowerCase();
+
         if (l.indexOf('ja') === 0) { target = 'jp'; break; }
+
         if (l.indexOf('vi') === 0) { target = 'vi'; break; }
+
         if (l.indexOf('en') === 0) { target = 'en'; break; }
       }
+
       location.replace('/' + target + '/');
     })();
   </script>

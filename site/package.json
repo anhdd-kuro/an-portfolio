@@ -1,18 +1,25 @@
 {
   "name": "thuyan-portfolio",
-  "type": "module",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "lint": "oxlint",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
     "preview": "astro preview"
   },
   "dependencies": {
-    "@astrojs/tailwind": "^5.1.4",
-    "astro": "^5.2.0",
-    "tailwindcss": "^3.4.17"
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.3.3",
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
-    "cheerio": "^1.2.0"
+    "@oxlint/plugins": "1.83.0",
+    "@shadcn/lint": "^0.1.0",
+    "cheerio": "^1.2.0",
+    "oxfmt": "^0.68.0",
+    "oxlint": "^1.83.0"
   }
 }

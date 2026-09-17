@@ -42,6 +42,11 @@ the portfolio's existing visual identity and content.
 
 - From `site/`, run `npm run build` for every code, content, routing, or style
   change. Inspect the affected files under `site/dist/` afterward.
+- From `site/`, run `npm run lint` after source changes. Keep `@shadcn/lint`
+  rules disabled until the design-system policies are explicitly defined;
+  anti-slop generic rules are enabled by the Oxlint configuration. The root
+  `.github/workflows/ci.yml` runs the same lint and build checks on pushes and
+  pull requests.
 - For UI or responsive changes, also inspect the running site in a local
   browser at the relevant desktop and mobile sizes. A passing build alone is
   not visual acceptance.

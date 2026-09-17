@@ -5,13 +5,16 @@ export interface Props {
   lang: 'en' | 'ja' | 'vi';
   page: string; // 'home' or the bare page slug (no .html)
 }
+
 const { lang, page } = Astro.props;
 
-const PREFIX: Record<string, string> = { en: 'en', ja: 'jp', vi: 'vi' };
-const t = (key: string) => (ui as any)[lang]?.[key] ?? (ui as any).en[key] ?? key;
+const PREFIX = { en: 'en', ja: 'jp', vi: 'vi' };
+
+const t = (key: keyof typeof ui.en) => ui[lang]?.[key] ?? ui.en[key] ?? key;
 
 function hrefFor(targetLang: 'en' | 'ja' | 'vi', slug = page) {
   const p = PREFIX[targetLang];
+
   return slug === 'home' ? `/${p}` : `/${p}/${slug}`;
 }
 

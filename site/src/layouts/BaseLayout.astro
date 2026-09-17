@@ -11,6 +11,7 @@ export interface Props {
   ogImage?: string;
   divider?: boolean;
 }
+
 const {
   lang,
   page,
@@ -20,9 +21,12 @@ const {
   divider = true,
 } = Astro.props;
 
-const t = (key: string) => (ui as any)[lang]?.[key] ?? (ui as any).en[key] ?? key;
-const PREFIX: Record<string, string> = { en: 'en', ja: 'jp', vi: 'vi' };
+const t = (key: keyof typeof ui.en) => ui[lang]?.[key] ?? ui.en[key] ?? key;
+
+const PREFIX = { en: 'en', ja: 'jp', vi: 'vi' };
+
 const altPath = (p: string) => (page === 'home' ? `/${p}` : `/${p}/${page}`);
+
 const htmlLang = lang === 'ja' ? 'ja' : lang === 'vi' ? 'vi' : 'en';
 ---
 <!DOCTYPE html>
