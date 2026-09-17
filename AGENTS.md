@@ -1,57 +1,170 @@
 # Thuy An Portfolio — Agent Instructions
 
-## Purpose and source boundaries
+## Overview
 
-Maintain the static, multilingual Astro portfolio in `site/` while preserving
-the portfolio's existing visual identity and content.
+Maintain the static, multilingual Thuy An portfolio while preserving its
+supplied artwork, visual identity, content, and accessible interactions.
 
-- Active application code lives in `site/src/` and `site/public/`.
-- Locales are `en`, `ja` (served at the `/jp` URL prefix), and `vi`. Keep the
-  three locale trees and their routes aligned when changing shared pages.
-- Shared page structure is in `site/src/layouts/BaseLayout.astro` and
-  `site/src/components/Header.astro`; shared styling is in
-  `site/src/styles/global.css`; small site interactions are in
-  `site/src/scripts/main.js`.
-- Translations live in `site/src/i18n/ui.json`. The local-only legacy static
-  site in `tmp/backup/site-legacy-20260910/` is the reference for the original
-  HTML, translations, links, and asset mapping. Original design material is
-  in `design/`; high-resolution source assets are in `tmp/ta-hi-res/`.
-- `tmp/` is intentionally ignored and is not part of the public repository.
-- Treat `site/dist/`, `site/.astro/`, and `site/node_modules/` as generated or
-  local dependency output. Do not hand-edit them as source.
+`AGENTS.md` is the canonical project instruction file. `CLAUDE.md` is a
+symlink to it; edit this file rather than maintaining a second instruction
+set.
+
+## Source boundaries
+
+- Application code and served assets live in `site/src/` and `site/public/`;
+  project configuration and tooling live in the `site/` root.
+- `design/` and the top-level `portfolio.fig` are visual/reference material.
+  Use them to understand the intended artwork and layout, not as runtime code.
+- `tmp/`, when present, contains ignored local-only material. It is not part of
+  the public repository and must not become a runtime dependency.
+- `graft/`, when present, is a local regenerable code index. Query it with the
+  Graft tooling before exploring source; do not hand-edit its generated graph.
+- Treat `site/dist/`, `site/.astro/`, `site/node_modules/`, `site/*.log`, and
+  `site/preview-pages.json` as generated or local output. Do not hand-edit or
+  commit them.
+- `site/generate.cjs` is an archived legacy-HTML migration codemod. The
+  `site/bundle_pages*.py` files are capture/bundling utilities. Do not run
+  either against the current source tree unless the task explicitly requests
+  that specialized workflow; they can recreate obsolete files or local output.
+- `site/tools/oxlint/anti-slop/` is checked-in lint-plugin source. Change it
+  only when the task is specifically about lint rules.
+
+## Current source structure
+
+```text
+site/
+├── src/
+│   ├── pages/                    # Astro route entrypoints
+│   │   ├── index.astro           # root language-aware redirect
+│   │   ├── 404.astro             # English site-wide not-found entrypoint
+│   │   └── [lang]/               # shared locale routes
+│   │       ├── index.astro       # localized landing page
+│   │       └── [slug].astro      # localized pages and project pages
+│   ├── components/               # shared shell and page components
+│   │   └── pages/                # Home, About, Portfolio, Contact, etc.
+│   ├── layouts/BaseLayout.astro  # document metadata, header, footer, scripts
+│   ├── content/pages/            # typed page copy: {en,jp,vi}/*.json
+│   ├── content.config.ts         # Astro content loader and Zod schemas
+│   ├── data/projects/             # one folder per project slug
+│   │   └── <slug>/                # index.ts + en/ja/vi.astro body modules
+│   ├── data/projects.ts           # project catalog and category helpers
+│   ├── data/projects/types.ts     # project metadata/content types
+│   ├── i18n/                      # locale mapping and shared UI translations
+│   ├── assets/                    # Astro-processed local images
+│   │   ├── images/projects/       # project-specific source artwork
+│   │   └── images/work/           # shared/work image assets
+│   ├── lib/image-assets.ts        # lookup for local Astro image metadata
+│   ├── scripts/main.js            # small browser-only interactions
+│   └── styles/                    # Tailwind entrypoint and site CSS
+├── public/assets/                 # files copied verbatim to /assets/
+└── tools/oxlint/                  # checked-in custom Oxlint rules
+```
+
+Use `site/src/assets/` with `OptimizedImage.astro` for build-processed local
+images. Use `site/public/assets/` for files that must be served unchanged at a
+root-relative `/assets/...` path, such as icons and animated GIFs. Shared
+application styles belong in `site/src/styles/`; the legacy-looking CSS file
+under `site/public/assets/` is not the source of truth for the Astro app.
+
+## Routing and localization
+
+- Supported locales are `en`, `ja`, and `vi`. The Japanese locale is stored as
+  `ja` but is served at the `/jp` URL prefix; never introduce `/ja` routes.
+- `site/src/i18n/config.ts` is the single source of truth for locale-to-route
+  mapping and localized paths. Use it instead of assembling URLs manually.
+- Shared page routes are generated by `site/src/pages/[lang]/index.astro` and
+  `site/src/pages/[lang]/[slug].astro`. Do not recreate per-locale route trees.
+- Page-level copy lives in the three matching trees under
+  `site/src/content/pages/{en,jp,vi}/`. The content collection is validated by
+  `site/src/content.config.ts`.
+- Shared navigation and accessibility labels live in `site/src/i18n/ui.json`
+  and are read through `site/src/i18n/utils.ts`.
+- Every localized copy change must keep all three locale sources aligned and
+  must be checked at `/en`, `/jp`, and `/vi`.
+
+## Project content
+
+Each project folder under `site/src/data/projects/<slug>/` owns its public slug,
+metadata, card copy, and localized body components:
+
+- `index.ts` defines category, ordering, visibility, card data, localized
+  metadata, and the `en`/`ja`/`vi` content components.
+- `en.astro`, `ja.astro`, and `vi.astro` contain only the localized project
+  body. The shared dynamic route supplies the layout, metadata, and locale URL.
+- `site/src/data/projects.ts` discovers project folders automatically. The
+  folder name is therefore part of the public URL and must remain URL-safe.
+- Keep project artwork in the appropriate `site/src/assets/images/` directory,
+  preserve supplied filenames and proportions, and update every locale module
+  when the project body or navigation changes.
+
+## Tech stack
+
+- Bun manages dependencies and scripts (`site/bun.lock`).
+- Astro 7 provides static build-time rendering, route generation,
+  `astro:content` collections, and `astro:assets` image/font handling. There is
+  no server adapter, database, or runtime API in this portfolio.
+- TypeScript uses Astro's strict configuration in `site/tsconfig.json`.
+- Tailwind CSS 4 is compiled at build time through `@tailwindcss/vite`; the
+  project tokens and custom breakpoints are in `site/tailwind.config.mjs`, and
+  `site/src/styles/global.css` is the Tailwind entrypoint.
+- Plain browser JavaScript in `site/src/scripts/main.js` handles the mobile
+  menu, language dropdown, banner hotspots, and scroll/back-to-top control.
+  Do not introduce a runtime UI framework or CDN dependency without an
+  explicit requirement.
+- Oxlint runs the Tailwind, `@shadcn/lint`, and checked-in anti-slop rules from
+  `site/.oxlintrc.json`. Oxfmt formats supported files; its configuration
+  intentionally excludes `.astro` templates.
+- Astro's configured font providers supply Quicksand and Hina Mincho for the
+  document shell.
 
 ## How to work
 
-- Inspect the affected page, shared shell, translation keys, and referenced
-  assets before editing. Make narrow changes and preserve unrelated work.
-- Keep the existing static architecture: Astro, build-time Tailwind, and
-  plain JavaScript. Do not introduce a runtime framework or CDN dependency
-  unless the request specifically requires it.
-- Prefer shared layout, component, or stylesheet changes for cross-cutting
-  behavior; keep page files focused on page-specific content.
-- When changing localized copy, add or update the corresponding key in all
-  three locale dictionaries and verify the `/en`, `/jp`, and `/vi` routes.
-- `site/generate.cjs` regenerates locale pages from the local-only legacy
-  snapshot and `ui.json`, overwriting `site/src/pages/{en,jp,vi}/`. Run it only
-  when that full regeneration is intended, then review the generated result.
-- Preserve supplied artwork, asset filenames, proportions, and interaction
-  conventions. New interactive behavior must remain keyboard-accessible and
-  respect `prefers-reduced-motion` when animation is involved.
+- Inspect the affected route, component/layout, content schema and locale
+  sources, project metadata, and referenced assets before editing.
+- Prefer shared components, layout, i18n helpers, or styles for cross-cutting
+  behavior; keep route and page files focused on composition.
+- Preserve the static Astro architecture, supplied artwork, asset paths,
+  proportions, and established interaction conventions.
+- New interactions must be keyboard-accessible and must respect
+  `prefers-reduced-motion` when animation is involved.
+- Investigate the root cause and add focused regression coverage when a bug is
+  fixed; do not replace a durable fix with a workaround.
+- Preserve unrelated dirty work. Stage explicit files or hunks, inspect the
+  cached diff and `git diff --check`, and never broadly reset, clean, or stash
+  the checkout.
+- Delegate only clearly independent work with non-overlapping ownership and
+  explicit evidence; do not parallelize edits to the same files.
 
-## Verification and handoff
+## Verification and completion evidence
 
-- From `site/`, run `bun run build` for every code, content, routing, or style
-  change. Inspect the affected files under `site/dist/` afterward.
-- From `site/`, run `bun run lint` after source changes. Keep `@shadcn/lint`
-  rules disabled until the design-system policies are explicitly defined;
-  anti-slop generic rules are enabled by the Oxlint configuration. The root
-  `.github/workflows/ci.yml` runs the same lint and build checks on pushes and
-  pull requests.
-- For UI or responsive changes, also inspect the running site in a local
-  browser at the relevant desktop and mobile sizes. A passing build alone is
-  not visual acceptance.
-- For translation or navigation changes, spot-check the same page in all
-  three locales and confirm that Japanese uses `/jp`, not `/ja`.
-- Report the outcome first, then the checks performed and their results. State
-  any browser, dependency, or other verification surface that was unavailable;
-  do not claim unverified visual or runtime behavior as complete.
+From `site/`, use the repository scripts appropriate to the change:
+
+```text
+bun run lint
+bun run format:check
+bun run build
+```
+
+- Run lint, formatting, and build checks for source, content, route, or style
+  changes. Inspect the affected files under `site/dist/` after a build.
+- For localized or navigation changes, confirm the same page in `/en`, `/jp`,
+  and `/vi`, including the `ja` -> `/jp` mapping.
+- For UI or responsive changes, inspect the running site in a local browser at
+  relevant desktop and mobile sizes. A passing build is not visual acceptance.
+- For instruction-only or metadata-only changes, at minimum verify the exact
+  file diff, symlink target (when applicable), and `git diff --check`; do not
+  imply that runtime behavior was verified unless the relevant checks ran.
+- Before claiming completion, report the outcome first, then the commands and
+  results, blockers, and any unavailable or unverified surface.
+
+## Git and communication
+
+- When asked to commit or push, verify the current branch and remote, stage only
+  the requested scope, inspect `git diff --cached`, and report the published
+  commit/remote state separately from any local branch state.
+- Lead responses with the conclusion. Use concise English unless the user
+  starts in another language; keep standard technical terms in English and add
+  a short explanation when a specialist term may be unfamiliar.
+- When explaining architecture or file ownership, use the smallest useful file
+  tree, diff, or call-flow sketch; do not add visuals that do not clarify the
+  decision.
