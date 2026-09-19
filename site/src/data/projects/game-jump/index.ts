@@ -11,8 +11,11 @@ const project = {
     image: { src: "/assets/images/projects/game-jump/thumb.webp", width: 900, height: 900 },
     title: {
       en: { title: "Game jump", alt: "Game jump" },
-      ja: { title: "Game jump", alt: "Game jump" },
-      vi: { title: "Game jump", alt: "Game jump" },
+      ja: { title: "Jump Pi - ゲームUIデザイン", alt: "Jump Pi - ゲームUIデザイン" },
+      vi: {
+        title: "Jump Pi - Thiết kế giao diện trò chơi",
+        alt: "Jump Pi - Thiết kế giao diện trò chơi",
+      },
     },
   },
   metadata: {
@@ -23,15 +26,15 @@ const project = {
       ogImage: "/assets/images/projects/game-jump/cover.webp",
     },
     ja: {
-      title: "Game jump | Thuy An Portfolio",
+      title: "Jump Pi - ゲームUIデザイン | Thuy An Portfolio",
       description:
-        "UI design for “Jump Pi”, a mobile jumping game - title, play and result screens. (Placeholder text, to be updated.)",
+        "モバイルゲーム「Jump Pi」のUIデザイン。タイトル・プレイ中・リザルトの各画面です。",
       ogImage: "/assets/images/projects/game-jump/cover.webp",
     },
     vi: {
-      title: "Game jump | Thuy An Portfolio",
+      title: "Jump Pi - Thiết kế giao diện trò chơi | Thuy An Portfolio",
       description:
-        "UI design for “Jump Pi”, a mobile jumping game - title, play and result screens. (Placeholder text, to be updated.)",
+        "Thiết kế UI cho “Jump Pi” - game mobile nhảy platform, gồm màn tiêu đề, trong game và kết quả.",
       ogImage: "/assets/images/projects/game-jump/cover.webp",
     },
   },

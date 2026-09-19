@@ -21,6 +21,10 @@ export default defineConfig({
       },
     }),
   ],
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: "hover",
+  },
   image: {
     breakpoints: [640, 960, 1280, 1920],
   },
@@ -31,7 +35,7 @@ export default defineConfig({
       provider: fontProviders.google(),
       weights: [400, 500, 600, 700],
       styles: ["normal"],
-      subsets: ["latin"],
+      subsets: ["latin", "vietnamese"],
       formats: ["woff2"],
       fallbacks: ["sans-serif"],
       display: "swap",
@@ -42,7 +46,7 @@ export default defineConfig({
       provider: fontProviders.google(),
       weights: [400],
       styles: ["normal"],
-      subsets: ["japanese"],
+      subsets: ["japanese", "latin"],
       formats: ["woff2"],
       fallbacks: ["serif"],
       display: "swap",

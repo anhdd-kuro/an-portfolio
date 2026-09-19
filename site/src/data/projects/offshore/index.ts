@@ -12,7 +12,7 @@ const project = {
     title: {
       en: { title: "Offshore - LP design", alt: "Offshore - LP design" },
       ja: { title: "オフショア - LP デザイン", alt: "オフショア - LP デザイン" },
-      vi: { title: "Offshore - LP design", alt: "Offshore - LP design" },
+      vi: { title: "Offshore - Thiết kế trang đích", alt: "Offshore - Thiết kế trang đích" },
     },
   },
   metadata: {
@@ -23,12 +23,12 @@ const project = {
     },
     ja: {
       title: "オフショア - LP デザイン | Thuy An Portfolio",
-      description: "This is a project that I worked on while at Caeruxlab company.",
+      description: "Caeruxlab 在籍中に担当したプロジェクトです。",
       ogImage: "/assets/images/projects/offshore/thumb.webp",
     },
     vi: {
-      title: "Offshore - LP design | Thuy An Portfolio",
-      description: "This is a project that I worked on while at Caeruxlab company.",
+      title: "Offshore - Thiết kế trang đích | Thuy An Portfolio",
+      description: "Đây là dự án mình thực hiện trong thời gian làm việc tại công ty Caeruxlab.",
       ogImage: "/assets/images/projects/offshore/thumb.webp",
     },
   },

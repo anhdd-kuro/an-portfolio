@@ -18,12 +18,12 @@ const project = {
       ogImage: "/assets/images/projects/qwiq-logo/thumb.webp",
     },
     ja: {
-      title: "Qwiq logo | Thuy An Portfolio",
+      title: "QwiQ - ロゴデザイン | Thuy An Portfolio",
       description: "QwiQ - Karabiner company のロゴデザインです。",
       ogImage: "/assets/images/projects/qwiq-logo/thumb.webp",
     },
     vi: {
-      title: "Qwiq logo | Thuy An Portfolio",
+      title: "QwiQ - Thiết kế logo | Thuy An Portfolio",
       description: "Thiết kế logo cho QwiQ - Karabiner company.",
       ogImage: "/assets/images/projects/qwiq-logo/thumb.webp",
     },

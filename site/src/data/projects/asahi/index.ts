@@ -25,13 +25,13 @@ const project = {
     ja: {
       title: "asahi | Thuy An Portfolio",
       description:
-        "Isometric illustration set - a rough layout first, then the finished scenes in two colour themes. (Placeholder text, to be updated.)",
+        "アイソメトリックのイラストセット。ラフのレイアウトから、2つのカラーテーマで仕上げたシーンまで。",
       ogImage: "/assets/images/work/a9ef1987abe2.webp",
     },
     vi: {
       title: "asahi | Thuy An Portfolio",
       description:
-        "Isometric illustration set - a rough layout first, then the finished scenes in two colour themes. (Placeholder text, to be updated.)",
+        "Bộ minh hoạ isometric - từ bản rough tới các cảnh hoàn thiện theo hai tông màu.",
       ogImage: "/assets/images/work/a9ef1987abe2.webp",
     },
   },

@@ -4,6 +4,19 @@
    file no longer does any runtime i18n -- language links are plain <a> tags
    pointing at /en /jp /vi and just navigate normally. */
 (function () {
+  /* ---- LQIP cleanup: transparent artwork must not keep the preview underneath ---- */
+  function initImagePlaceholders() {
+    document.querySelectorAll("img[data-lqip]").forEach(function (img) {
+      function clearPlaceholder() {
+        img.removeAttribute("data-lqip");
+        img.style.removeProperty("--optimized-image-placeholder");
+      }
+
+      if (img.complete && img.naturalWidth > 0) clearPlaceholder();
+      else img.addEventListener("load", clearPlaceholder, { once: true });
+    });
+  }
+
   /* ---- Banner hotspots: swap in the matching animated drawing on hover ---- */
   function initHotspots() {
     var spots = document.querySelectorAll("a.hot");
@@ -52,10 +65,21 @@
   }
 
   /* ---- Language dropdown open/close (tablet / desktop) ---- */
+  function setDropdownState(dd, open) {
+    var btn = dd.querySelector(".lang-dd-btn");
+    var list = dd.querySelector(".lang-dd-list");
+
+    dd.classList.toggle("open", open);
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+    list.setAttribute("aria-hidden", open ? "false" : "true");
+
+    if (open) list.removeAttribute("inert");
+    else list.setAttribute("inert", "");
+  }
+
   function closeDropdowns() {
     document.querySelectorAll(".lang-dd.open").forEach(function (dd) {
-      dd.classList.remove("open");
-      dd.querySelector(".lang-dd-btn").setAttribute("aria-expanded", "false");
+      setDropdownState(dd, false);
     });
   }
 
@@ -66,8 +90,7 @@
         e.stopPropagation();
         var open = !dd.classList.contains("open");
         closeDropdowns();
-        dd.classList.toggle("open", open);
-        btn.setAttribute("aria-expanded", open ? "true" : "false");
+        setDropdownState(dd, open);
       });
     });
     document.addEventListener("click", closeDropdowns);
@@ -86,6 +109,11 @@
       menu.classList.toggle("open", open);
       document.body.classList.toggle("menu-open", open);
       btn.setAttribute("aria-expanded", open ? "true" : "false");
+      menu.setAttribute("aria-hidden", open ? "false" : "true");
+
+      if (open) menu.removeAttribute("inert");
+      else menu.setAttribute("inert", "");
+
       btn.style.backgroundImage = open
         ? "url(/assets/icons/close.png)"
         : "url(/assets/icons/menu.png)";
@@ -167,6 +195,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
+    initImagePlaceholders();
     initHotspots();
     initLangDropdown();
     initMenu();

@@ -11,8 +11,8 @@ const project = {
     image: { src: "/assets/images/projects/ketnoi/thumb.webp", width: 900, height: 900 },
     title: {
       en: { title: "ketnoi LP design", alt: "ketnoi LP design" },
-      ja: { title: "ketnoi LP design", alt: "ketnoi LP design" },
-      vi: { title: "ketnoi LP design", alt: "ketnoi LP design" },
+      ja: { title: "KET NOI - LPデザイン", alt: "KET NOI - LPデザイン" },
+      vi: { title: "KET NOI - Thiết kế trang đích", alt: "KET NOI - Thiết kế trang đích" },
     },
   },
   metadata: {
@@ -23,15 +23,15 @@ const project = {
       ogImage: "/assets/images/projects/ketnoi/cover.webp",
     },
     ja: {
-      title: "ketnoi LP design | Thuy An Portfolio",
+      title: "KET NOI - LPデザイン | Thuy An Portfolio",
       description:
-        "Corporate landing page for KET NOI, designed for desktop and mobile. (Placeholder text, to be updated.)",
+        "KET NOI の企業向けランディングページ。パソコンとモバイルの両方に対応したデザインです。",
       ogImage: "/assets/images/projects/ketnoi/cover.webp",
     },
     vi: {
-      title: "ketnoi LP design | Thuy An Portfolio",
+      title: "KET NOI - Thiết kế trang đích | Thuy An Portfolio",
       description:
-        "Corporate landing page for KET NOI, designed for desktop and mobile. (Placeholder text, to be updated.)",
+        "Thiết kế trang đích doanh nghiệp cho KET NOI, dành cho máy tính và thiết bị di động.",
       ogImage: "/assets/images/projects/ketnoi/cover.webp",
     },
   },

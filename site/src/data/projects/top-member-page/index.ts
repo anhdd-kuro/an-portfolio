@@ -12,7 +12,10 @@ const project = {
     title: {
       en: { title: "Top member page - LP design", alt: "Top member page - LP design" },
       ja: { title: "会員トップページ - LP デザイン", alt: "会員トップページ - LP デザイン" },
-      vi: { title: "Trang chủ thành viên - LP design", alt: "Trang chủ thành viên - LP design" },
+      vi: {
+        title: "Trang chủ thành viên - Thiết kế trang đích",
+        alt: "Trang chủ thành viên - Thiết kế trang đích",
+      },
     },
   },
   metadata: {
@@ -23,12 +26,12 @@ const project = {
     },
     ja: {
       title: "会員トップページ - LP デザイン | Thuy An Portfolio",
-      description: "This is a project that I worked on while at Caeruxlab company.",
+      description: "Caeruxlab 在籍中に担当したプロジェクトです。",
       ogImage: "/assets/images/projects/top-member-page/thumb.webp",
     },
     vi: {
-      title: "Trang chủ thành viên - LP design | Thuy An Portfolio",
-      description: "This is a project that I worked on while at Caeruxlab company.",
+      title: "Trang chủ thành viên - Thiết kế trang đích | Thuy An Portfolio",
+      description: "Đây là dự án mình thực hiện trong thời gian làm việc tại công ty Caeruxlab.",
       ogImage: "/assets/images/projects/top-member-page/thumb.webp",
     },
   },

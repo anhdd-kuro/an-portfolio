@@ -1,5 +1,5 @@
 ---
-import { Image, type ImageMetadata } from 'astro:assets';
+import { getImage, Image, type ImageMetadata } from 'astro:assets';
 
 type NumericAttribute = number | `${number}`;
 
@@ -16,6 +16,7 @@ interface Props {
   quality?: number | 'low' | 'mid' | 'high' | 'max';
   loading?: 'eager' | 'lazy';
   decoding?: 'async' | 'sync' | 'auto';
+  placeholder?: boolean;
 }
 
 // SAFETY: Every call site supplies the documented image props, and src is resolved against the bundled local asset map below.
@@ -34,6 +35,7 @@ const {
   quality,
   loading,
   decoding,
+  placeholder: requestedPlaceholder,
 } = props;
 
 const toNumber = (value: NumericAttribute | undefined) =>
@@ -45,6 +47,8 @@ const height = toNumber(rawHeight);
 
 const priority = requestedPriority ?? fetchpriority === 'high';
 
+const showPlaceholder = requestedPlaceholder ?? (!priority && loading !== 'eager');
+
 const images = import.meta.glob<{ default: ImageMetadata }>(
   '../assets/**/*.{png,jpg,jpeg,webp,avif}',
   { eager: true },
@@ -55,6 +59,14 @@ const image = images[`../assets/${src.replace(/^\/assets\//, '')}`]?.default;
 if (!image) {
   throw new Error(`OptimizedImage could not find ${src} in src/assets`);
 }
+
+const placeholder = showPlaceholder
+  ? await getImage({ src: image, width: 32, format: 'webp', quality: 'low' })
+  : undefined;
+
+const placeholderStyle = placeholder
+  ? `--optimized-image-placeholder: url("${placeholder.src}")`
+  : undefined;
 ---
 <Image
   src={image}
@@ -69,4 +81,6 @@ if (!image) {
   fetchpriority={fetchpriority}
   loading={loading}
   decoding={decoding}
+  data-lqip={placeholder ? '' : undefined}
+  style={placeholderStyle}
  />

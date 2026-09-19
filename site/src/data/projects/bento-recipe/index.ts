@@ -15,7 +15,10 @@ const project = {
         title: "お弁当レシピ - LP / アプリデザイン",
         alt: "お弁当レシピ - LP / アプリデザイン",
       },
-      vi: { title: "Bento recipe - LP | App design", alt: "Bento recipe - LP | App design" },
+      vi: {
+        title: "Công thức Bento - Thiết kế trang đích và ứng dụng",
+        alt: "Công thức Bento - Thiết kế trang đích và ứng dụng",
+      },
     },
   },
   metadata: {
@@ -26,12 +29,12 @@ const project = {
     },
     ja: {
       title: "お弁当レシピ - LP / アプリデザイン | Thuy An Portfolio",
-      description: "This is a project that I worked on while at Caeruxlab company.",
+      description: "Caeruxlab 在籍中に担当したプロジェクトです。",
       ogImage: "/assets/images/projects/bento-recipe/thumb.webp",
     },
     vi: {
-      title: "Bento recipe - LP | App design | Thuy An Portfolio",
-      description: "This is a project that I worked on while at Caeruxlab company.",
+      title: "Công thức Bento - Thiết kế trang đích và ứng dụng | Thuy An Portfolio",
+      description: "Đây là dự án mình thực hiện trong thời gian làm việc tại công ty Caeruxlab.",
       ogImage: "/assets/images/projects/bento-recipe/thumb.webp",
     },
   },

@@ -30,8 +30,34 @@ body {
   line-height: 22px;
   font-weight: 500;
 }
+main {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+@starting-style {
+  main {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+/* Hina Mincho has finer strokes than Quicksand at the same nominal size. */
+html:lang(ja) :is(.text-body, .text-body-loose, .text-\[16px\]) {
+  font-size: 18px;
+  line-height: 1.7;
+  letter-spacing: 0.04em;
+}
 .text-pretty {
   text-wrap: pretty;
+}
+/* Tiny build-time preview keeps lazy images visually present while the full asset loads. */
+img[data-lqip] {
+  background-image: var(--optimized-image-placeholder);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .card-ph {
   background: var(--card);
@@ -92,11 +118,20 @@ a:hover {
   background: none;
   border: 0;
   box-shadow: none;
-  display: none;
+  display: block;
+  opacity: 0;
+  transform: scale(0.95);
+  transform-origin: top right;
+  pointer-events: none;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
   z-index: 45;
 }
 .lang-dd.open .lang-dd-list {
-  display: block;
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
 }
 .lang-dd-list > img {
   display: block;
@@ -135,16 +170,29 @@ a:hover {
   inset: 0;
   background: #fff;
   z-index: 60;
-  display: none;
+  display: flex;
   flex-direction: column;
   align-items: stretch;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  opacity: 0;
+  transform: translateY(-16px);
+  pointer-events: none;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 #mobile-menu.open {
-  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
-/* header bar: logo ink 42px wide at x=25, close ink 26.5px wide at right 26.5px, hairline at y=61 */
+@media (min-width: 680px) {
+  #mobile-menu {
+    display: none;
+  }
+}
+/* header bar: the logo matches the closed mobile header; close ink stays 26.5px from the right edge */
 #mobile-menu .menu-bar {
   flex-shrink: 0;
   height: 61px;
@@ -157,12 +205,14 @@ a:hover {
 }
 #mobile-menu .menu-logo {
   display: block;
-  width: 45.6px;
+  width: 60px;
+  height: 60px;
 }
 #mobile-menu .menu-logo img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
 }
 #mobile-menu #menu-close {
   width: 32.7px;
@@ -315,6 +365,11 @@ body.menu-open {
   opacity: 0;
   transition: opacity 0.15s ease;
 }
+.hot:hover .hot-still,
+.hot:focus-visible .hot-still,
+.hot.on .hot-still {
+  opacity: 0;
+}
 .hot:hover .hot-anim,
 .hot:focus-visible .hot-anim,
 .hot.on .hot-anim {
@@ -378,6 +433,18 @@ body.menu-open {
   }
 } /* footer is 88px here */
 @media (prefers-reduced-motion: reduce) {
+  main {
+    transition: opacity 0.15s ease;
+    transform: none;
+  }
+  .lang-dd-list {
+    transition: opacity 0.15s ease;
+    transform: none;
+  }
+  #mobile-menu {
+    transition: opacity 0.15s ease;
+    transform: none;
+  }
   #side-scroll {
     transition: opacity 0.2s ease;
   }

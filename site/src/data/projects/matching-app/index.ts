@@ -16,8 +16,8 @@ const project = {
         alt: "マッチングアプリ - モバイルアプリデザイン",
       },
       vi: {
-        title: "Ứng dụng matching - App mobile design",
-        alt: "Ứng dụng matching - App mobile design",
+        title: "Ứng dụng kết nối - Thiết kế ứng dụng di động",
+        alt: "Ứng dụng kết nối - Thiết kế ứng dụng di động",
       },
     },
   },
@@ -29,12 +29,12 @@ const project = {
     },
     ja: {
       title: "マッチングアプリ - モバイルアプリデザイン | Thuy An Portfolio",
-      description: "This is a project that I worked on while at Caeruxlab company.",
+      description: "Caeruxlab 在籍中に担当したプロジェクトです。",
       ogImage: "/assets/images/projects/matching-app/thumb.webp",
     },
     vi: {
-      title: "Ứng dụng matching - App mobile design | Thuy An Portfolio",
-      description: "This is a project that I worked on while at Caeruxlab company.",
+      title: "Ứng dụng kết nối - Thiết kế ứng dụng di động | Thuy An Portfolio",
+      description: "Đây là dự án mình thực hiện trong thời gian làm việc tại công ty Caeruxlab.",
       ogImage: "/assets/images/projects/matching-app/thumb.webp",
     },
   },

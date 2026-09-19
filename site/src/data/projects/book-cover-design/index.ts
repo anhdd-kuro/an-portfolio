@@ -24,14 +24,12 @@ const project = {
     },
     ja: {
       title: "ブックカバーデザイン | Thuy An Portfolio",
-      description:
-        "・Category : Book cover design ・Client : Quang Van publishing company, Wabooks vn ・Tool used : Adobe Illustrator, Adobe Photoshop, Procreate",
+      description: "カテゴリ：ブックカバーデザイン",
       ogImage: "/assets/images/work/bff049fc167c.webp",
     },
     vi: {
       title: "Thiết kế bìa sách | Thuy An Portfolio",
-      description:
-        "・Category : Book cover design ・Client : Quang Van publishing company, Wabooks vn ・Tool used : Adobe Illustrator, Adobe Photoshop, Procreate",
+      description: "Hạng mục : Thiết kế bìa sách",
       ogImage: "/assets/images/work/bff049fc167c.webp",
     },
   },

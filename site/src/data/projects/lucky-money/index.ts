@@ -12,7 +12,7 @@ const project = {
     title: {
       en: { title: "Lucky money - LP design", alt: "Lucky money - LP design" },
       ja: { title: "お年玉 - LP デザイン", alt: "お年玉 - LP デザイン" },
-      vi: { title: "Lucky money - LP design", alt: "Lucky money - LP design" },
+      vi: { title: "Lì xì - Thiết kế trang đích", alt: "Lì xì - Thiết kế trang đích" },
     },
   },
   metadata: {
@@ -23,12 +23,12 @@ const project = {
     },
     ja: {
       title: "お年玉 - LP デザイン | Thuy An Portfolio",
-      description: "This is a project that I worked on while at Caeruxlab company.",
+      description: "Caeruxlab 在籍中に担当したプロジェクトです。",
       ogImage: "/assets/images/projects/lucky-money/thumb.webp",
     },
     vi: {
-      title: "Lucky money - LP design | Thuy An Portfolio",
-      description: "This is a project that I worked on while at Caeruxlab company.",
+      title: "Lì xì - Thiết kế trang đích | Thuy An Portfolio",
+      description: "Đây là dự án mình thực hiện trong thời gian làm việc tại công ty Caeruxlab.",
       ogImage: "/assets/images/projects/lucky-money/thumb.webp",
     },
   },

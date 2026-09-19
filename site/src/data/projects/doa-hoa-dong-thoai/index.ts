@@ -23,7 +23,7 @@ const project = {
       ogImage: "/assets/images/projects/doa-hoa-dong-thoai/thumb.webp",
     },
     ja: {
-      title: "Đóa hoa đồng thoại - minh họa trang sách | Thuy An Portfolio",
+      title: "Đóa hoa đồng thoại - 挿絵 | Thuy An Portfolio",
       description: "「Đóa hoa đồng thoại」に収録された子ども向けのお話のための挿絵です。",
       ogImage: "/assets/images/projects/doa-hoa-dong-thoai/thumb.webp",
     },

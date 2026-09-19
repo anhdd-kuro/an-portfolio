@@ -11,8 +11,11 @@ const project = {
     image: { src: "/assets/images/projects/game-find-me/thumb.webp", width: 900, height: 900 },
     title: {
       en: { title: "game find me", alt: "game find me" },
-      ja: { title: "game find me", alt: "game find me" },
-      vi: { title: "game find me", alt: "game find me" },
+      ja: { title: "Find Me - ゲームUIデザイン", alt: "Find Me - ゲームUIデザイン" },
+      vi: {
+        title: "Find Me - Thiết kế giao diện trò chơi",
+        alt: "Find Me - Thiết kế giao diện trò chơi",
+      },
     },
   },
   metadata: {
@@ -23,15 +26,15 @@ const project = {
       ogImage: "/assets/images/projects/game-find-me/cover.webp",
     },
     ja: {
-      title: "game find me | Thuy An Portfolio",
+      title: "Find Me - ゲームUIデザイン | Thuy An Portfolio",
       description:
-        "UI design for “Find Me”, a mobile game built around a set of mini-games (Shuffle Cup, Flipme, Bomb, Num100). (Placeholder text, to be updated.)",
+        "モバイルゲーム「Find Me」のUIデザイン。ミニゲーム（Shuffle Cup / Flipme / Bomb / Num100）をまとめた構成です。",
       ogImage: "/assets/images/projects/game-find-me/cover.webp",
     },
     vi: {
-      title: "game find me | Thuy An Portfolio",
+      title: "Find Me - Thiết kế giao diện trò chơi | Thuy An Portfolio",
       description:
-        "UI design for “Find Me”, a mobile game built around a set of mini-games (Shuffle Cup, Flipme, Bomb, Num100). (Placeholder text, to be updated.)",
+        "Thiết kế UI cho “Find Me” - game mobile gồm một bộ mini game (Shuffle Cup, Flipme, Bomb, Num100).",
       ogImage: "/assets/images/projects/game-find-me/cover.webp",
     },
   },

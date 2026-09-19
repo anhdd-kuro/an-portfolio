@@ -18,7 +18,7 @@ const project = {
       ogImage: "/assets/images/projects/tarot/thumb.webp",
     },
     ja: {
-      title: "Tarot | Thuy An Portfolio",
+      title: "タロット | Thuy An Portfolio",
       description: "手描きの大アルカナ・タロットカードのイラストシリーズです。",
       ogImage: "/assets/images/projects/tarot/thumb.webp",
     },

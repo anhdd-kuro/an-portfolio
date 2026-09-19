@@ -25,13 +25,13 @@ const project = {
     ja: {
       title: "パーソナルワーク | Thuy An Portfolio",
       description:
-        "Here are some of my personal artworks. I create pieces that reflect aspects of life, and psychology, and my hope is to evoke a sense of comfort for th",
+        "こちらは私の個人制作の作品です。暮らしのひとこまや心のうごきを写しとるように描いています。見てくださる方が、少しほっとできたらうれしいです。",
       ogImage: "/assets/images/work/70338b4f401c.webp",
     },
     vi: {
       title: "Tranh cá nhân | Thuy An Portfolio",
       description:
-        "Here are some of my personal artworks. I create pieces that reflect aspects of life, and psychology, and my hope is to evoke a sense of comfort for th",
+        "Đây là một số tranh cá nhân của mình. Mình vẽ những điều phản chiếu các mảnh của đời sống và tâm lý con người, và mong sao người xem cảm thấy được an ủi phần nào.",
       ogImage: "/assets/images/work/70338b4f401c.webp",
     },
   },
