@@ -29,7 +29,72 @@ const t = useTranslations(lang);
 
 const htmlLang = htmlLangFromLocale(lang);
 
-const ogImageUrl = resolveImageAsset(ogImage)?.src ?? ogImage;
+const siteUrl = Astro.site ?? Astro.url;
+
+const normalizePagePath = (path: string) => {
+  const normalized = path.replace(/\/+$/, "");
+
+  return normalized ? `${normalized}/` : "/";
+};
+
+const absolutePageUrl = (path: string) => new URL(normalizePagePath(path), siteUrl).href;
+
+const canonicalUrl = absolutePageUrl(Astro.url.pathname);
+
+const defaultHomeUrl = absolutePageUrl(localizedPath("en", "home"));
+
+const isNotFound = page === "404";
+
+const robotsContent = isNotFound ? "noindex, nofollow" : "index, follow";
+
+const ogImageUrl = new URL(resolveImageAsset(ogImage)?.src ?? ogImage, siteUrl).href;
+
+const ogLocales = {
+  en: "en_US",
+  ja: "ja_JP",
+  vi: "vi_VN",
+} as const;
+
+const ogLocale = ogLocales[lang];
+
+const alternateOgLocales = localeEntries
+  .filter((locale) => locale.locale !== lang)
+  .map((locale) => ogLocales[locale.locale]);
+
+const structuredData = isNotFound
+  ? undefined
+  : {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": `${defaultHomeUrl}#website`,
+          name: "Thuy An | Illustrator & UI Designer",
+          url: defaultHomeUrl,
+          inLanguage: localeEntries.map((locale) => locale.htmlLang),
+        },
+        {
+          "@type": "WebPage",
+          "@id": `${canonicalUrl}#webpage`,
+          name: title,
+          description,
+          url: canonicalUrl,
+          inLanguage: htmlLang,
+          isPartOf: { "@id": `${defaultHomeUrl}#website` },
+        },
+        {
+          "@type": "Person",
+          "@id": `${defaultHomeUrl}#person`,
+          name: "Thuy An",
+          url: defaultHomeUrl,
+          jobTitle: "Illustrator and UI/UX Designer",
+          sameAs: [
+            "https://www.facebook.com/vuive194/",
+            "https://www.instagram.com/thuyan.illustration/",
+          ],
+        },
+      ],
+    };
 ---
 <!DOCTYPE html>
 <html lang={htmlLang}>
@@ -38,18 +103,29 @@ const ogImageUrl = resolveImageAsset(ogImage)?.src ?? ogImage;
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{title}</title>
   <meta name="description" content={description} />
+  <meta name="robots" content={robotsContent} />
+  <link rel="canonical" href={canonicalUrl} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:site_name" content="Thuy An | Illustrator & UI Designer" />
+  <meta property="og:locale" content={ogLocale} />
+  {alternateOgLocales.map((locale) => <meta property="og:locale:alternate" content={locale} />)}
   <meta property="og:image" content={ogImageUrl} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImageUrl} />
   <meta name="theme-color" content="#ffffff" />
   <link rel="icon" type="image/png" href={logo.src} />
   <Font cssVariable="--font-quicksand" preload />
   {htmlLang === 'ja' && <Font cssVariable="--font-hina-mincho" />}
   {localeEntries.map((locale) => (
-    <link rel="alternate" hreflang={locale.htmlLang} href={localizedPath(locale.locale, page)} />
+    <link rel="alternate" hreflang={locale.htmlLang} href={absolutePageUrl(localizedPath(locale.locale, page))} />
   ))}
-  <link rel="alternate" hreflang="x-default" href={localizedPath('en', page)} />
+  <link rel="alternate" hreflang="x-default" href={absolutePageUrl(localizedPath("en", page))} />
+  {structuredData && <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />}
 </head>
 <body data-page={page} class:list={[htmlLang === 'ja' ? 'font-jp' : 'font-serif', 'text-ink', 'bg-paper']}>
 <div class="w-full max-w-7xl mx-auto bg-paper min-h-screen flex flex-col overflow-x-hidden">

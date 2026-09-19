@@ -1,7 +1,26 @@
 import { defineConfig, fontProviders } from "astro/config";
+import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
+  site: "https://thuy-an-portfolio.anhdd-kuro.chatgpt.site",
+  integrations: [
+    sitemap({
+      filter: (page) => {
+        const pathname = new URL(page).pathname.replace(/\/+$/, "") || "/";
+
+        return pathname !== "/" && !pathname.endsWith("/404");
+      },
+      i18n: {
+        defaultLocale: "en",
+        locales: {
+          en: "en",
+          jp: "ja",
+          vi: "vi",
+        },
+      },
+    }),
+  ],
   image: {
     breakpoints: [640, 960, 1280, 1920],
   },

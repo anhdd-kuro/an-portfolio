@@ -44,6 +44,15 @@ Shared navigation labels remain in `src/i18n/ui.json` and are read through
 current source tree: it predates the collection-backed routes and can recreate
 the removed per-locale page files.
 
+## SEO
+
+The verified public origin is configured in `astro.config.mjs`. The build uses
+`@astrojs/sitemap` to generate `sitemap-index.xml` and its localized sitemap
+links, while `src/pages/robots.txt.ts` publishes a `robots.txt` file pointing
+to that sitemap. `BaseLayout.astro` emits canonical URLs, absolute `hreflang`
+links, Open Graph and Twitter card metadata, and JSON-LD structured data for
+indexable pages.
+
 ### Landing / language redirect
 
 `src/pages/index.astro` (served at `/`) is a tiny client-side redirect: it
@@ -80,9 +89,6 @@ requests.
 
 ## Known follow-ups
 
-- `og:image` / hreflang links use root-relative paths (`/en/...`) - swap for
-  absolute URLs once the site has a domain (same open item the legacy site
-  had).
 - `footer.copy` is identical across all three languages in the source data
   (not translated) - that's inherited from the legacy `translations.js`,
   not a bug in the Astro port.
